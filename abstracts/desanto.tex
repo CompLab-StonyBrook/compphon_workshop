@@ -1,0 +1,336 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{fixltx2e}
+% \renewcommand{\baselinestretch}{0.985}
+
+\usepackage{natbib}
+\bibpunct[:]{(}{)}{;}{a}{}{,}
+\setlength{\bibsep}{2pt}
+\setlength{\bibhang}{0pt}
+
+\usepackage[a4paper, left=2.5cm, right=2.5cm, top=2.30cm, bottom=2.4cm]{geometry}
+\usepackage[kerning=true, protrusion=alltext, draft=false]{microtype}
+
+\usepackage[utf8]{inputenc}	% not working with ð and þ; use \eth and \thorn instead
+\usepackage[T1]{fontenc}	% scalable EC fonts
+\usepackage{mathptmx}
+\usepackage{tipx}
+\usepackage{ amssymb }
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{tikz-qtree}
+
+\usepackage[tiny,compact]{titlesec}
+\usepackage[small,it]{caption}
+\usepackage{mdwlist}
+\usepackage{wrapfig}
+
+\setlength{\parindent}{1em}
+\setlength{\parskip}{-1pt}
+\setlength{\parsep}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\pagestyle{empty}
+
+\newcommand{\tsb}[1]{\textsubscript{#1}}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+\urlstyle{same}
+
+\begin{document}
+\begin{center}
+    {\bfseries A Game of Tiers: Exploring the Formal Properties of TSL Languages\\}
+   %One Class to Rule Them All?\\ A Study of TSL Languages Motivated by Typological Outliers\\}
+   %A Study of TSL Languages Motivated by Typological Outliers\\}
+    \footnotesize
+    \emph{Keywords}: phonology, computational linguistics, subregular hypothesis, formal language theory
+\end{center}
+\vskip 0.5em
+
+\paragraph{Overview}
+
+
+Following the attempt to use formal language theory to describe the complexity of linguistics processes, it has been recently suggested that unbounded dependencies in phonotactics, morphology, and even syntax can all be captured by the class of Tier-based Strictly Local languages (TSL).  
+Here I present patterns that have been reported to be problematic for this approach, and discuss how we can account for them by small changes to TSL formal mechanisms.
+Exploring the resulting new classes, I also show how solutions adopted in the literature to capture problematic phonotactic dependencies  give us more expressive power than what is desirable.
+
+
+\paragraph{TSL Phonology}
+Many dependencies in phonology can be captured by \emph{local constraints} that only make distinctions on the basis of contiguous subsequences of segments up to some length $k$.
+ For example, a ($k$=2) local dependency requiring \textipa{/s/} to surface as \textipa{[z]} when followed by \textipa{[l]} can be captured by a grammar that only contains the sequence \emph{zl} (or, alternatively, the negative constraint $^*$sl). 
+Dependencies that are not locally bounded do not fit this pattern.
+Heinz \emph{et al.} (2011) argue that long-distance dependencies are \emph{tier-based strictly local}: a tier is defined as the projection of a subset of the segments of the input string, and the grammar constraints act only over that subset.
+For instance, the example below (from \textsc{Aari}, an Omotic language of south Ethiopia) shows how to enforce long-distance sibilant harmony (in anteriority) by projecting a tier $T$ only containing  sibilants from the input, and ban contiguous \textipa{\textctyogh s} and \textipa{s\textctyogh} on $T$.
+
+ 
+\begin{center}
+\begin{tikzpicture}
+
+
+\node (0) at (0,0) {\textctyogh };
+\node (1) at (0.5,0) {a:};
+\node (2) at (1,0) {e};
+\node (3) at (1.5,0) {r};
+\node (4) at (2,0) {s};
+\node (5) at (2.5,0) {e};
+%tier
+\node (000) at (-0.4,1.3) {$^*$};
+\node (00) at (0,1) {\textctyogh };
+\node (05) at (2,1) {s};
+
+\draw [dashed, red] (-0.3, 0.7) -- (2.2, 0.7) -- (2.2,1.3) -- (-0.3,1.3) -- (-0.3, 0.7);
+
+\draw[dotted, thick, blue] (-0.35,0.55) to (2.8,0.55);
+\node at (0.5,0.40) {{\tiny T: sibilant harmony}};
+
+\begin{scope}[xshift=250pt]
+\node (0) at (0,0) {\textctyogh };
+\node (1) at (0.5,0) {a:};
+\node (2) at (1,0) {e};
+\node (3) at (1.5,0) {r};
+\node (4) at (2,0) {\textesh };
+\node (5) at (2.5,0) {e};
+%tier
+\node (000) at (-0.5,1.3) {$^{ok}$};
+\node (00) at (0,1) {\textctyogh };
+\node (05) at (2,1) {\textesh };
+
+\draw [dashed, red] (-0.3, 0.7) -- (2.2, 0.7) -- (2.2,1.3) -- (-0.3,1.3) -- (-0.3, 0.7);
+
+\draw[dotted, thick, blue] (-0.35,0.55) to (2.8,0.55);
+\node at (0.5,0.40) {{\tiny T: sibilant harmony}};
+\end{scope}
+
+\end{tikzpicture}
+\end{center}
+
+%\paragraph{TSL Closure Properties}
+%
+%Here I present a set of examples and proofs to show that TSL is not closed under certain well-known formal operations (union, relabeling, complement, substring substitution, intersection).
+%This result is particularly important for linguistics, since the so-called closure properties of subregular languages have been used to support the claim that the TSL class offers a well-defined boundary for the human learner, and that this characterization helps account for a significant amount of typological gaps both in phonotactics and morphology (Heinz 2015, Aksenova 2016).
+%Generally, we say that a class $\mathcal{C}$ is closed under an operation iff applying this operation to elements of  $\mathcal{C}$ never takes us outside of this class.
+%While closure properties have been extensively studied for some subregular classes, to my knowledge there is no work in the literature providing a formal characterization of these properties for  TSL. 
+
+
+
+\paragraph{Limitations of TSL (1)}
+
+McMullin (2016) discusses several languages that struggle to be captured by the way TSL currently combines a projection mechanism and strictly local dependencies.
+For example, he presents a case of long-distance Sibilant Harmony in \textsc{Imdlawn Tshlhiyt}, where sibilants agree both in voicing and anteriority, unless there is an intervening voiceless obstruents somewhere in the string. In that case, agreement in voicing (but not in anteriority) is blocked.
+This pattern cannot be described by a single TSL grammar: to block agreement in voicing, we would need to project a tier of sibilants \textit{and} obstruents. Once such tier has been built though, we cannot stop obstruents from also blocking the agreement in anteriority.
+In the literature, this problem has been resolved via the conjunction of distinct TSL grammars.
+However, it can be shown via formal proof that this operation is not well-defined for TSL: it is unclear what expressive power we get by combining the constraints of multiple TSL grammars.
+
+\paragraph{Multiple-Tier SL}%
+Even leaving complex patterns aside, intuitively we want our system to generate strings that conform to all the constraints of the natural language we are describing.
+To account for this, and cover patterns like the ones in McMullin (2016), I introduce \emph{Multiple Tier Strictly Local (MTSL)} languages, a generalization of  TSL that allows us to enforce multiple Tier-based constraints at the same time, while providing a better formal characterization of the conjunction operation. % that in the future will allow for a better exploration of the formal characteristics of these languages.
+Informally, MTSL can be defined as TSL languages projecting over multiple tiers and enforcing a -- potentially different -- set of constraints for each tier. Then, a string is well-formed for the language iff every substring on each projected tier  is well-formed. 
+%%%%%%%Imdlawn Tshlhiyt  ILL-FORMED EXAMPLE %%%%%%
+\begin{center}
+\begin{tikzpicture}
+\node (000) at (-0.3,0) {$^{*}$};
+\node (0) at (0,0) {s};
+\node (1) at (0.5,-0.05) {q};
+\node (2) at (1,0) {u};
+\node (3) at (1.5,-0.05) { \textctyogh:};
+\node (4) at (2,0) {i};
+
+%
+\node (00) at (-1.9,1.2) {$^{ok}$};
+\node (01) at (-1.5,1) {s};
+\node (03) at (-1,0.98) {q};
+\node (05) at (0.0,0.98) {\textctyogh:};
+\node (0000) at (-1.4,1.5) {$^{ok}$};
+%
+\node (000) at (1.6,1.2) {$^{*}$};
+\node (02) at (2,0.98) {s};
+\node (06) at (3,0.98) {\textctyogh:};
+
+\draw[dotted, thick, blue] (-2,0.55) to (0.5,0.55);
+\draw[dotted, thick, blue] (1.8,0.55) to (3.8,0.55);
+\node at (2.8,0.40) {{\tiny T$_{2}: $ sibilant anteriority }};
+\node at (-1.2,0.40) {{\tiny T$_{1}: $ sibilant voicing}};
+
+%\draw [dashed, red] (-0.3, -0.3) -- (0.2, -0.3) -- (0.2,0.3) -- (-0.3,0.3) -- (-0.3, -0.3);
+\draw [dashed, red] (-1.7, 0.7) -- (-0.7, 0.7) -- (-0.7,1.3) -- (-1.7,1.3) -- (-1.7, 0.7);
+\draw [dashed, red] (-1.3, 0.8) -- (0.4, 0.8) -- (0.4,1.4) -- (-1.3,1.4) -- (-1.3, 0.8);
+\draw [dashed, red] (3.3, 0.7) -- (1.8, 0.7) -- (1.8,1.3) -- (3.3,1.3) -- (3.3, 0.7);
+
+\begin{scope}[xshift=250pt]
+\node (000) at (-0.3,0) {};
+\node (0) at (0,0) {\textesh};
+\node (1) at (0.5,-0.05) {q};
+\node (2) at (1,0) {u};
+\node (3) at (1.5,-0.05) { \textctyogh:};
+\node (4) at (2,0) {i};
+
+%
+\node (0000) at (-1.4,1.5) {$^{ok}$};
+\node (00) at (-1.9,1.2) {$^{ok}$};
+\node (01) at (-1.5,1) {\textesh};
+\node (03) at (-1,0.98) {q};
+\node (05) at (0.0,0.98) {\textctyogh:};
+%
+\node (000) at (1.6,1.2) {$^{ok}$};
+\node (02) at (2,0.98) {\textesh};
+\node (06) at (3,0.98) {\textctyogh:};
+
+\draw[dotted, thick, blue] (-2,0.55) to (0.5,0.55);
+\draw[dotted, thick, blue] (1.8,0.55) to (3.8,0.55);
+\node at (2.8,0.40) {{\tiny T$_{2}: $ sibilant anteriority }};
+\node at (-1.2,0.40) {{\tiny T$_{1}: $ sibilant voicing}};
+\draw [dashed, red] (-1.7, 0.7) -- (-0.7, 0.7) -- (-0.7,1.3) -- (-1.7,1.3) -- (-1.7, 0.7);
+\draw [dashed, red] (-1.3, 0.8) -- (0.4, 0.8) -- (0.4,1.4) -- (-1.3,1.4) -- (-1.3, 0.8);
+
+\draw [dashed, red] (3.3, 0.7) -- (1.8, 0.7) -- (1.8,1.3) -- (3.3,1.3) -- (3.3, 0.7);
+\end{scope}
+
+\end{tikzpicture}
+\end{center}
+The above example from \textsc{Imdlawn Tshlhiyt} shows how -- by projecting a separate tier for each harmony type -- the MTSL grammar correctly rules out the ill-formed \textbf{[squ\textctyogh:i]} (on the left), where voicing harmony is blocked on T$_1$ but anteriority is violated on T$_2$, while ruling in the well-formed  \textbf{[\textesh qu\textctyogh:i]} (on the right).
+
+%MTSL  generalizes TSL, while capturing the conjunction operation in a way that allows for a better understanding of its formal consequences.
+
+\paragraph{Limitations of TSL (2)}
+The MTSL class gives us a way to cope with phonotactic processes that require local constraints over different sets of segment. 
+However, there are patterns for which  the problem lies in not projecting enough information onto a tier. 
+Baek (2016) reports  cases of unbounded stress in \textsc{Eastern Cheremis} and \textsc{Dongolese Numbian}, that seem to need tier-projection of more than just substring segments.
+In these languages, the primary stress falls on the right-most non-final heavy syllable or - if there is none - on the initial syllable. Baek shows that no TSL grammar is able to generate well-formed strings like, for instance, \textbf{\'L}LLLH, while also ruling out ill-formed strings like  \textbf{\'L}LLLHH. 
+In order to account for these patterns, she proposes a variant of TSL that can project structural features (e.g. initial/final syllable).
+
+\paragraph{Structure-Sensitive TSL}
+Instead of projecting bundles of features encoding structural information, I show that this kind of expressivity can be accomplished by increasing the locality window of the projection mechanism. For example, we can allow the grammar to put an element on the tier iff it is in an initial/final position in the input string.
+While the TSL projection mechanism is based on each segment's individual (also, 1-local) properties, this new class of grammars  -- \emph{Structure-Sensitive TSL (SS-TLS)} -- relies on structural relationships between segments in the input string to choose what to project.
+This adjustment captures Baek's unbounded stress patters, and other processes reported as problematic for TSL (e.g. culminativity, cf. Heinz (2014) ).
+
+
+\begin{tikzpicture}
+\node (000) at (-0.4,1.5) {$^{ok}$};
+\node (0000) at (1.5,1.3) {$^{ok}$};
+
+\node (0) at (0,0) {\textesh };
+\node (1) at (0.5,0) {a};
+\node (2) at (1,0) {p};
+\node (3) at (1.5,0) {i};
+\node (4) at (2,0) {};
+\node (5) at (2,0) {t\textesh$^h$};
+\node (6) at (2.5,0) {o};
+\node (7) at (3,0) {l};
+\node (8) at (3.5,0) {u};
+\node (9) at (4,0) {\textesh};
+\node (10) at (4.5,0) {w};
+\node (11) at (5,0) {a};
+\node (12) at (5.5,0) {\textesh};
+%+
+\node (00) at (0,1) {\textesh };
+\node (05) at (2,1) {t\textesh$^h$};
+\node (09) at (4,1) {\textesh};
+\node (012) at (5.5,1) {\textesh};
+
+
+\draw [dashed, red] (-0.2, 0.65) -- (2.3, 0.65) -- (2.3,1.4) -- (-0.2,1.4) -- (-0.2, 0.65);
+
+\begin{scope}[xshift=53pt]
+\draw [dashed, red] (-0.2, 0.7) -- (2.3, 0.7) -- (2.3,1.3) -- (-0.2,1.3) -- (-0.2, 0.7);
+\end{scope}
+%
+\begin{scope}[xshift=100pt]
+\node (000) at (-0.4,1.5) {$^{ok}$};
+\draw [dashed, red] (-0.2, 0.65) -- (2.3, 0.65) -- (2.3,1.4) -- (-0.2,1.4) -- (-0.2, 0.65);
+\end{scope}
+
+\draw[dotted, thick, blue] (-0.25,0.55) to (6,0.55);
+\node at (0.9,0.40) {{\tiny T$_1$: anticipatory harmony}};
+%\draw [dashed] (1.2,0.77) -- (2.7,0.77) -- (2.7,1.2) -- (1.2,1.2) -- (1.2,0.77);
+%
+%\textesh apit\textesh$^h$olu \textesh was \textesh
+
+
+\begin{scope}[xshift=240pt]
+\node (0000) at (-0.4,1.5) {$^{ok}$};
+\node (000) at (-0.5,0) {$\rtimes$};
+\node (0) at (0,0) {\textesh };
+\node (1) at (0.5,0) {a};
+\node (2) at (1,0) {p};
+\node (3) at (1.5,0) {i};
+\node (4) at (2,0) {};
+\node (5) at (2,0) {t\textesh$^h$};
+\node (6) at (2.5,0) {o};
+\node (7) at (3,0) {l};
+\node (8) at (3.5,0) {u};
+\node (9) at (4,0) {s};
+\node (10) at (4.5,0) {w};
+\node (11) at (5,0) {a};
+\node (12) at (5.5,0) {\textesh};
+\node (0000) at (6,0) {$\ltimes$};
+%+
+\node (00) at (0,1) {\textesh };
+%\node (05) at (2,1) {t\textesh$^h$};
+%\node (09) at (4,1) {\textesh};
+\node (012) at (5.5,1) {\textesh};
+   
+\draw[dotted, thick, blue] (-0.72,0.55) to (6,0.55);
+\node at (0.2,0.40) {{\tiny T$_1$: first/last harmony}};
+
+\draw [dashed, red] (-0.2, 0.65) -- (5.7, 0.65) -- (5.7,1.4) -- (-0.2,1.4) -- (-0.2, 0.65);
+
+\draw [dashed, red] (-0.8, -0.3) -- (0.3, -0.3) -- (0.3,0.28) -- (-0.8,0.28) -- (-0.8, -0.3);
+\draw [dashed, red] (5.2, -0.3) -- (6.3, -0.3) -- (6.3,0.28) -- (5.2,0.28) -- (5.2, -0.3);
+\end{scope}
+
+\end{tikzpicture}
+
+
+\noindent  In the example above, a TSL grammar for anticipatory harmony in \textsc{Samala} (on the left) is extended to SS-TSL  (Pseudo-\textsc{Samala} first-last harmony, on the right). % by increasing the locality of the projection operation to 2.
+The grammar wants to project sibilants on a tier, but can do it iff the sibilant segment is in an initial/final position in the input string.
+The explicitly defined local sensitivity of SS-TSL then, shows us that by including structural information on a tier -- as suggested by Baek (2016) -- we allow for the generation of undesired patterns.
+By providing a formal understanding of the structural-projection idea, I explore this increase in generative power and the relationship between the TSL, MTSL and SS-TSL  classes.
+In the future, it would be interesting to see whether some combination of these classes can cover all desired patterns while avoiding the unnatural ones.
+
+%I once again provide a formal definition of the class and discuss some of its properties. I explore the relationship between this new class of SS-TSL languages and the one of MTSL and, exploiting an example of first/last harmony, I show that the hierarchy of languages that these new mechanisms generate are not in a proper subsumption relationship. 
+
+%\paragraph{Tier-Embedding SL}
+%Finally, I trace back to complex patterns described as conjunction of TSL grammars, to observe that in most of the reported cases there is always one tier that is the superset of all the others.
+%Therefore, I explore a class of grammars projecting subsets of tiers in an embedded fashion.
+%I show that, if we don't allow structural projection, these \emph{Tier-Embedding SL (TESL)} languages are just a special case of MTSL. In the future, it would be interesting to see whether TESL can cover the desired SS-TSL patterns while avoiding the unnatural ones.  Moreover, TESL predicts that, for example, we could expect languages that establish a long-distance agreement over a set of segments (e.g. sibilant voicing harmony blocked by nasals) and then another kind of agreement among a subset of them (e.g. only voiced sibilants agree in anteriority).  This asks for a more careful typological exploration of existing phenomena. 
+
+\paragraph{Conclusion}
+The last decade has provided  support for the subregular hypothesis as a strong computational theory of language complexity. %I argue for the need of a precise understanding of the language classes we use in order to formulate and evaluate linguistics predictions. 
+Since a growing body of literature is exploring the TSL boundary from a typological -- as well as experimental -- point of view, here I discuss the  generative power of classes obtained by extending TSL via minor modifications to its projection mechanism. These new classes offer different ways to account for controversial patterns in the literature, and a careful understanding of their formal relationship to TSL will help the search for the right subregular class for phonotactics.
+ 
+\small
+\newcommand{\bibseparator}{\tikz\draw[draw=gray!55,fill=gray!55] (0,0) circle (.5ex);\,}
+\vskip 0.5em
+\noindent
+%\textbf{Aks\"{e}nova, Al\"{e}na}, T. Graf, and S. Moradi. 2016. Morphotactics as tier-based strictly local dependencies. In \textit{Proceedings of the 14th Annual SIGMORPHON}.
+%\ \textbullet\
+ \textbf{Baek, Hyunah}. 2016. \textit{Unbounded Stress: TSL with structural features}. Ms., Stony Brook University.
+%\ \textbullet\ \textbf{Heinz, Jeffrey}. 2015. The computational nature of phonological generalizations. \textit{Ms., University of Delaware}.
+\ \textbullet\ \textbf{Heinz, Jeffrey}. 2014. Culminativity times harmony equals unbounded stress. In \textit{Word Stress: Theoretical and Typological Issues}, Chap 8.
+  \ \textbullet \  \textbf{Heinz, Jeffrey}, Chetan Rawal, and Herbert~G. Tanner. 2011.
+\newblock Tier-based strictly local constraints in phonology.
+\newblock In {\em Proceedings of ACL 49th\/}, 58--64.
+ \ \textbullet\ \textbf{McMullin, Kevin}. 2016.  \textit{Tier-based locality in long-distance phonotactics: learnability and typology}. Doctoral  dissertation, University of British Columbia.
+
+%\ \textbullet \ \textbf{Graf, Thomas}. 2016. Computational Parallels Across Language Modules (\href{http://thomasgraf.net/doc/talks/Graf16Yaletalk.pdf}{available online}).
+\end{document}
+% Annual Meeting of  the ACL
+
+% put all citations on an extra page that will be cut out in post;
+% that way we can keep using natbib commands for citations
+\pagebreak
+\bibliographystyle{../../linquiry3}
+\bibliography{./plc39}
+\end{document}
