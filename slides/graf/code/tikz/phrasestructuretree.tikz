@@ -1,0 +1,28 @@
+\begin{tikzpicture}[level distance=2.5em, scale=.75]
+    \Tree
+        [.CP
+            [.{\color{purple}DP$_w$}
+                [.D which ]
+                [.N man ]
+            ]
+            [.C$'$
+                [.C
+                    do
+                    [.{\color{SeaGreen4}T$_i$} -ed ]
+                ]
+                [.TP
+                    [.{\color{blue}DP$_m$} Mary ]
+                    [.T$'$ 
+                        $\color{SeaGreen4}t_i$
+                        [.VP
+                            $\color{blue}t_m$
+                            [.V'
+                                [.V kiss ]
+                                $\color{purple}t_w$
+                            ]
+                        ]
+                    ]
+                ]
+           ]
+       ]
+\end{tikzpicture}

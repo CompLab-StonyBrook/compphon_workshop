@@ -1,0 +1,113 @@
+\begin{tikzpicture}
+    % Overall structure for picture
+    % =============================
+    % 1) define derivation tree
+    % 2) define purple tier, with lexical tiers omitted
+    % 3) define teal tier, with lexical tiers omitted
+    % 4) define list of illicit tier-grams and highlight violations accordingly
+
+    % Derivation Tree
+    \begin{scope}[
+        level 1+/.style = { level distance = 2em }
+        ]
+        \Tree
+            [.\node(pm1){\Purple{Move}};
+                [.Merge
+                    [.\node(pm2){\Purple{Move}};
+                        [.Merge
+                            [.Merge
+                                \node(pl2){\Purple{a}};
+                                b
+                            ]
+                            c
+                        ]
+                    ]
+                    [.Merge
+                        [.\node(tm1){\Teal{Move}};
+                            [.Merge
+                                d
+                                \node(tl1){\Teal{e}};
+                            ]
+                        ]
+                        \node(pl1){\Purple{f}};
+                    ]
+                ]
+            ]
+    \end{scope}
+
+    % Purple tier
+    \begin{scope}[visible on = <2->]
+        \node (p-root) [right=8.5em of root, yshift=5em] {\$};
+        \node (p-Move1) [below=2em of p-root] {\Purple{Move}};
+        \node (p-Move2) [below=2.5em of p-Move1,xshift=-1.5em] {\Purple{Move}};
+        \node (p-a) [below=2.3em of p-Move2] {\Purple{a}};
+        \node (p-f) [below=2.3em of p-Move1,xshift=1.5em] {\Purple{f}};
+
+        % edge markers for leaves
+        \node (p-a-edge) [below=1.2em of p-a] {\$};
+        \node (p-f-edge) [below=1.2em of p-f] {\$};
+
+        % connect tier elements
+        \foreach \Source/\Target in {%
+                p-root/p-Move1,
+                p-Move1/p-Move2,
+                p-Move1/p-f,
+                p-Move2/p-a,
+                p-a/p-a-edge,
+                p-f/p-f-edge%
+            }
+            \draw (\Source) to (\Target);
+    \end{scope}
+
+    % Teal tier
+    \begin{scope}[visible on = <3->]
+        \node (t-root) [right=11em of p-root] {\$};
+        \node (t-Move) [below=2em of t-root] {\Teal{Move}};
+        \node (t-e) [below=2em of t-Move] {\Teal{e}};
+
+        % edge markers for leaves
+        \node (t-e-edge) [below=1.2em of t-e] {\$};
+
+        % connect tier elements
+        \foreach \Source/\Target in {%
+                t-root/t-Move,
+                t-Move/t-e,
+                t-e/t-e-edge%
+            }
+            \draw (\Source) to (\Target);
+    \end{scope}
+
+    % illicit tier-grams
+    \begin{scope}
+        % labels
+        \node (SMC1) [yshift=-22em] at ($(p-root) !.9! (t-root)$) {\textbf{SMC1}};
+        \node (SMC2) [right=2em of SMC1] {\textbf{SMC2}};
+        \node (Move) [left=2em of SMC1] {\textbf{Move}};
+
+        % Move
+        \node (Move-root) [above=3.5em of Move] {\$};
+        \node (Move-LI) [below=2.5em of Move-root, inner sep=0pt] {$\geq 1$ LI};
+        \node (Move-left) [left=.25em of Move-LI] {};
+        \node (Move-right) [right=.25em of Move-LI] {};
+        \draw[dashed] ($(Move-left.north) + (0,.2em)$) -- ($(Move-right.north) + (0,.2em)$) -- (Move-root.south) -- cycle;
+        
+        % SMC1
+        \node (SMC1-root) [above=3.5em of SMC1] {Move};
+        \node (SMC1-LI) [below=2.5em of SMC1-root, inner sep=0pt] {no LI};
+        \node (SMC1-left) [left=.25em of SMC1-LI] {};
+        \node (SMC1-right) [right=.25em of SMC1-LI] {};
+        \draw[dashed] ($(SMC1-left.north) + (0,.2em)$) -- ($(SMC1-right.north) + (0,.2em)$) -- (SMC1-root.south) -- cycle;
+
+        % SMC2
+        \node (SMC2-root) [above=3.5em of SMC2] {Move};
+        \node (SMC2-LI) [below=2.5em of SMC2-root, inner sep=0pt] {$\geq 2$ LI};
+        \node (SMC2-left) [left=.25em of SMC2-LI] {};
+        \node (SMC2-right) [right=.25em of SMC2-LI] {};
+        \draw[dashed] ($(SMC2-left.north) + (0,.2em)$) -- ($(SMC2-right.north) + (0,.2em)$) -- (SMC2-root.south) -- cycle;
+
+        % background
+        \node (back1) at ($(Move)-(1.5em,.5em)$) {};
+        \node (back2) at ($(SMC2-root)+(1.6em,.55em)$) {};
+        \node[thick,draw=gray,fill=gray!25,opacity=.25,fit=(back1) (back2)] {};
+    \end{scope}
+\end{tikzpicture}
