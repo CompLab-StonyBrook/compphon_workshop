@@ -1,0 +1,14 @@
+*
+!.gitignore
+!*.bib
+!*.bst
+!*.clo
+!*.cls
+!*.dot
+!*.latexmain
+!*.py
+!*.sty
+!*.tex
+!*.tikz
+!slides/
+!slides/**/
