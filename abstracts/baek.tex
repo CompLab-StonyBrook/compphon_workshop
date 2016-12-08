@@ -1,0 +1,390 @@
+\documentclass[letterpaper,12pt]{article}
+%\usepackage{fixltx2e}
+
+\usepackage{natbib}
+\bibpunct[:]{(}{)}{;}{a}{}{,}
+\setlength{\bibsep}{2pt}
+\setlength{\bibhang}{0pt}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[kerning=true, protrusion=alltext, draft=false]{microtype}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{tikz-qtree}
+
+
+\usepackage[utf8]{inputenc}	% not working with ð and þ; use \eth and \thorn instead
+\usepackage[T1]{fontenc}	% scalable EC fonts
+\usepackage{mathptmx}
+\usepackage{amssymb, amsmath} % for symbols
+\usepackage{tipa}
+
+
+\usepackage[tiny,compact]{titlesec}
+\usepackage[small,it]{caption}
+\usepackage{mdwlist}
+\usepackage{wrapfig}
+
+\usepackage{gb4e}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1pt}
+\setlength{\parsep}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\pagestyle{empty}
+
+% now we're going to cheat a bit
+\renewcommand{\baselinestretch}{.95}
+
+\newcommand{\tsb}[1]{\textsubscript{#1}}
+
+
+\begin{document}
+
+\begin{center}
+    {\bfseries Computational representation of unbounded stress: tiers with structural features}\\
+    \footnotesize
+      \emph{Keywords}: phonology, stress, computational linguistics, TSL, structural features
+\end{center}
+\vskip 0.5em
+
+\paragraph{Overview}
+Within computational linguistics, it is now widely agreed that phonology is regular.
+More recently, Heinz (2016) and related works have argued that most phonological patterns are even less complex and fit into the class of \emph{tier-based strictly local} dependencies (TSL). 
+However, there still remain patterns that ostensibly display higher complexity than TSL\@.
+One example is unbounded stress, which has recently been analyzed as belonging to the class of \emph{conjunction of negative and positive literals} (CNPL; Strother-Garcia et al.\ 2016).
+I re-analyze these unbounded stress patterns and argue that once grammar has access to structural information of syllables, they are TSL after all.
+The hypothesis that phonological dependencies are TSL-like thus can be maintained.
+
+\paragraph{RHOL as TSL}
+In languages such as Chuvash, words have primary stress on the rightmost heavy syllable, otherwise on the leftmost syllable (RHOL; Hayes 1995).
+The RHOL pattern is \textit{unbounded} in that stress can be an arbitrary number of syllables away from the left\slash right edge of a word.
+Computationally, this pattern lies within the class of TSL\@ (cf. Heinz 2014).
+
+First we ensure that every word has exactly one primary stress.
+To this end, we project a tier that contains only stressed heavy (\'H) and stressed light (\'L) syllables.
+The tier is ill-formed iff it contains an instance of  \'H\'H, \'L\'L, \'H\'L, \'L\'H, or $\rtimes$$\ltimes$ (the left and right edges, respectively). For example, while (\ref{ex:culminativity}a) is well-formed, (\ref{ex:culminativity}b-c) are not because their tiers contain a forbidden substring.
+
+\vskip 0.5em
+%Culminativity examples: (a) licit, (b-c) illicit
+\begin{minipage}{.4\textwidth}
+\begin{exe}
+	\ex 
+	\small
+	a. 
+	\begin{tikzpicture}[baseline]
+	\node (0) at (0,0) {$\rtimes$};
+	\node (1) at (0.5,0) {L};
+	\node (2) at (1,0) {H};
+	\node (3) at (1.5,0.05) {\'H};
+	\node (4) at (2,0) {$\ltimes$};
+
+    \draw[dotted, thick, blue,yshift=-1em] (-0.25,0.65) to (2.5,0.65);
+    \node [yshift=-1em] at (-0.5,0.7) {{\tiny Tier}};
+
+    \begin{scope}[yshift=-1.3em]
+        %+
+        \node (00) at (0,1) {$\rtimes$};
+        \node (03) at (1.5,1.05) {\'H};
+        \node (04) at (2,1) {$\ltimes$};
+    \end{scope}
+	\end{tikzpicture}
+	\label{ex:culminativity}
+\end{exe}
+\end{minipage}
+%
+\begin{minipage}{.3\textwidth}
+	\small
+	b. $^{*}$
+	\begin{tikzpicture}[baseline]
+	\node (0) at (0,0) {$\rtimes$};
+	\node (1) at (0.5,0.05) {\'L};
+	\node (2) at (1,0) {H};
+	\node (3) at (1.5,0.05) {\'H};
+	\node (4) at (2,0) {$\ltimes$};
+
+    \draw[dotted, thick, blue,yshift=-1em] (-0.25,0.65) to (2.5,0.65);
+    \node [yshift=-1em] at (-0.5,0.7) {{\tiny Tier}};
+
+    \begin{scope}[yshift=-1.3em]
+        %+
+        \node (00) at (0,1) {$\rtimes$};
+        \node (01) at (0.5,1.05) {\'L};
+        \node (03) at (1.5,1.05) {\'H};
+        \node (04) at (2,1) {$\ltimes$};
+        \draw[dashed, red] (0.3,0.82) -- (1.7,0.82) -- (1.7,1.3) -- (0.3,1.3) -- (0.3,0.82);
+    \end{scope}
+	\end{tikzpicture}
+\end{minipage}
+%
+\begin{minipage}{.3\textwidth}
+	\small
+	c. $^{*}$
+	\begin{tikzpicture}[baseline]
+	\node (0) at (0,0) {$\rtimes$};
+	\node (1) at (0.5,0) {L};
+	\node (2) at (1,0) {H};
+	\node (3) at (1.5,0) {H};
+	\node (4) at (2,0) {$\ltimes$};
+
+    \draw[dotted, thick, blue,yshift=-1em] (-0.25,0.65) to (2.5,0.65);
+    \node [yshift=-1em] at (-0.5,0.7) {{\tiny Tier}};
+
+    \begin{scope}[yshift=-1.3em]
+        %+
+        \node (01) at (0,1) {$\rtimes$};
+        \node (04) at (2,1) {$\ltimes$};
+        \draw[dashed, red] (-0.2,0.82) -- (2.2,0.82) -- (2.2,1.3) -- (-0.2,1.3) -- (-0.2,0.82);
+    \end{scope}
+	\end{tikzpicture}
+\end{minipage}
+\vskip 0.5em
+
+Next we enforce the RHOL pattern by projecting a tier that contains only \'H, \'L, and their unstressed counterparts H and L\@. This tier must not contain any instances of \'HH, \'LH, H\'L, or L\'L\@. Since each example in \eqref{ex:RHOL} contains one of these substrings, they are all ill-formed. 
+
+\vskip 0.5em
+%RHOL examples: (a-b) illicit
+\begin{minipage}{.4\textwidth}
+\begin{exe}
+	\ex 
+	\small
+	a. $^{*}$
+	\begin{tikzpicture}[baseline]
+	\node (0) at (0,0) {$\rtimes$};
+	\node (1) at (0.5,0) {L};
+	\node (2) at (1,0.05) {\'H};
+	\node (3) at (1.5,0) {H};
+	\node (4) at (2,0) {$\ltimes$};
+
+    \draw[dotted, thick, blue,yshift=-1em] (-0.25,0.65) to (2.5,0.65);
+    \node [yshift=-1em] at (-0.5,0.7) {{\tiny Tier}};
+
+    \begin{scope}[yshift=-1.3em]
+        %+
+        \node (01) at (0.5,1) {L};
+        \node (02) at (1,1.05) {\'H};
+        \node (03) at (1.5,1) {H};
+  		\draw[dashed, red] (0.8,0.82) -- (1.7,0.82) -- (1.7,1.3) -- (0.8,1.3) -- (0.8,0.82);
+    \end{scope}
+	\end{tikzpicture}
+	\label{ex:RHOL}
+\end{exe}
+\end{minipage}
+%
+\begin{minipage}{.3\textwidth}
+	\small
+	b. $^{*}$
+	\begin{tikzpicture}[baseline]
+	\node (0) at (0,0) {$\rtimes$};
+	\node (1) at (0.5,0.05) {\'L};
+	\node (2) at (1,0) {H};
+	\node (3) at (1.5,0) {H};
+	\node (4) at (2,0) {$\ltimes$};
+
+    \draw[dotted, thick, blue,yshift=-1em] (-0.25,0.65) to (2.5,0.65);
+    \node [yshift=-1em] at (-0.5,0.7) {{\tiny Tier}};
+
+    \begin{scope}[yshift=-1.3em]
+        %+
+        \node (01) at (0.5,1.05) {\'L};
+        \node (02) at (1,1) {H};
+        \node (03) at (1.5,1) {H};
+        \draw[dashed, red] (0.3,0.82) -- (1.2,0.82) -- (1.2,1.3) -- (0.3,1.3) -- (0.3,0.82);
+    \end{scope}
+	\end{tikzpicture}
+\end{minipage}
+%
+\begin{minipage}{.3\textwidth}
+	\small
+	c. $^{*}$
+	\begin{tikzpicture}[baseline]
+	\node (0) at (0,0) {$\rtimes$};
+	\node (1) at (0.5,0) {L};
+	\node (2) at (1,0) {L};
+	\node (3) at (1.5,0.05) {\'L};
+	\node (4) at (2,0) {$\ltimes$};
+
+    \draw[dotted, thick, blue,yshift=-1em] (-0.25,0.65) to (2.5,0.65);
+    \node [yshift=-1em] at (-0.5,0.7) {{\tiny Tier}};
+
+    \begin{scope}[yshift=-1.3em]
+        %+
+        \node (01) at (0.5,1) {L};
+		\node (02) at (1,1) {L};
+		\node (03) at (1.5,1.05) {\'L};
+        \draw[dashed, red] (0.8,0.82) -- (1.7,0.82) -- (1.7,1.3) -- (0.8,1.3) -- (0.8,0.82);
+    \end{scope}
+	\end{tikzpicture}
+\end{minipage}
+\vskip 0.5em
+
+\paragraph{Non-final RHOL as TSL?} 
+Classical Arabic displays a similar stress assignment pattern as RHOL.
+Putting aside irrelevant details, stress falls on the rightmost non-final H, otherwise on the leftmost L as shown in \eqref{ex:CA} (McCarthy 1979).
+The crucial difference between RHOL and Classical Arabic is that in the latter, the final H never gets stress.
+I thus call this pattern \textit{non-final RHOL}.
+
+\vskip 0.2em
+\begin{exe}
+	\ex
+	\small
+	\begin{tabular}{lllllll}
+	a. & kit\'aabun & \textit{book (nom. sig.)} & & b. & k\'ataba & \textit{he wrote}
+	\end{tabular}
+	\label{ex:CA}
+\end{exe}
+\vskip 0.2em
+
+\noindent
+Although non-final RHOL looks similar to RHOL, it is not a pure TSL dependency.
+If we rule out an illicit string as in \eqref{ex:illicit} by forbidding a substring $^{*}$\'HH, this incorrectly blocks the licit form in \eqref{ex:licit}.
+Without a distinction between final and non-final H, TSL approaches over-\slash under-generate.
+\vskip 0.5em
+%example: ellicit forms
+\begin{minipage}{.5\textwidth}
+\begin{exe}
+	\ex 
+	\small
+	$^{*}$
+	\begin{tikzpicture}[baseline]
+	\node (0) at (0,0) {$\rtimes$};
+	\node (1) at (0.5,0) {L};
+	\node (2) at (1,0) {L};
+	\node (3) at (1.5,0.05) {\'H};
+	\node (4) at (2,0) {H};
+	\node (5) at (2.5,0) {H};
+	\node (6) at (3.0,0) {$\ltimes$};
+
+    \draw[dotted, thick, blue,yshift=-1em] (-0.25,0.65) to (3.5,0.65);
+    \node [yshift=-1em] at (-0.5,0.7) {{\tiny Tier}};
+
+    \begin{scope}[yshift=-1.3em]
+        %+
+        \node (03) at (1.5,1.05) {\'H};
+        \node (04) at (2.0,1) {H};
+        \node (05) at (2.5,1) {H};
+        %\node (06) at (3.0,1) {$\ltimes$};
+        \draw[dashed, red] (1.3,0.82) -- (2.2,0.82) -- (2.2,1.3) -- (1.3,1.3) -- (1.3,0.82);
+    \end{scope}
+	\end{tikzpicture}
+	\label{ex:illicit}
+\end{exe}
+\end{minipage}
+%
+%example: licit forms
+\begin{minipage}{.5\textwidth}
+\begin{exe}
+	\ex
+	\small
+	\begin{tikzpicture}[baseline]
+	\node (0) at (0,0) {$\rtimes$};
+	\node (1) at (0.5,0) {L};
+	\node (2) at (1,0) {L};
+	\node (3) at (1.5,0) {L};
+	\node (4) at (2,0.05) {\'H};
+	\node (5) at (2.5,0) {H};
+	\node (6) at (3.0,0) {$\ltimes$};
+
+    \draw[dotted, thick, blue,yshift=-1em] (-0.25,0.65) to (3.5,0.65);
+    \node [yshift=-1em] at (-0.5,0.7) {{\tiny Tier}};
+
+    \begin{scope}[yshift=-1.3em]
+        %+
+        \node (03) at (2,1.05) {\'H};
+        \node (05) at (2.5,1) {H};
+        %\node (06) at (3.0,1) {$\ltimes$};
+        \draw[dashed, red] (1.8,1.3) -- (2.7,1.3) -- (2.7,0.82) -- (1.8,0.82) -- (1.8,1.3);
+    \end{scope}
+
+	\end{tikzpicture}
+	\label{ex:licit}
+\end{exe}
+\end{minipage}
+\vskip 0.5em
+
+
+\paragraph{TSL with structural features}
+In order to solve this problem, I propose that prosodic elements are composed of features containing their structural information and that these features rather than whole syllables trigger tier projection. Prosodic structural features include those that are already familiar in literature on prosodic phonology (e.g., syllable weight, stress) as well as those that are less so, such as syllable location and word boundary.
+For example, the string in \eqref{ex:licit} is a sequence of feature bundles as in \eqref{ex:features}.
+In a \emph{TSL grammar with Structural Features} (TSL-SF), a component \textit{T} specifies feature matrices such that a symbol is projected onto the tier iff it is compatible with one of the matrices.
+\textit{S} specifies forbidden substrings that must not be present in strings projected on the tier.
+The structural features allow the TSL-SF grammar in \eqref{ex:Grammar} to distinguish final and non-final H\@.
+
+\begin{exe}
+	\ex
+	\small
+	\begin{tabular}{ccccccc}
+	$\rtimes$ & L & L & L & \'H & H & $\ltimes$\\
+	\hline
+	+boundary & +light & +light & +light & +heavy & +heavy & +boundary \\[-2pt]
+	& -stress & -stress & -stress & +stress & -stress & \\[-2pt]
+	& +initial & -initial & -initial & -initial & -initial & \\[-2pt]
+	& -final & -final & -final & -final & +final & \\
+	\end{tabular}
+	\label{ex:features}
+\end{exe}
+
+\noindent
+
+
+\begin{exe}
+	\ex  
+	\small
+	$
+	G = \left \langle T = \begin{Bmatrix}
+	[\text{+stress}], \\ [\text{+heavy}],\\ [\text{+initial}], \\ [\text{+final}] 
+	\end{Bmatrix}
+	, \quad S = \begin{Bmatrix}
+	$^{*}$[\text{+heavy, +stress, -initial, +final}], \\ $^{*}$[\text{+light, +stress, -initial}],\\ $^{*}$[\text{+heavy, +stress}][\text{+heavy, -stress, -final}],  \\ $^{*}$[\text{+light, +stress}][\text{+heavy, -stress, -final}] 
+	\end{Bmatrix} \right \rangle
+	$
+    % fixme: remove empty matrices? might be too confusing for reviewers
+	\label{ex:Grammar}
+\end{exe}	
+
+\noindent	
+According to this grammar, the illicit string in \eqref{ex:illicit} projects the tier \'HHH, which contains the forbidden substring $^{*}$[+heavy, +stress][+heavy, -stress, -final].
+The licit string in \eqref{ex:licit}, on the other hand, projects \'HH, which contains no forbidden substrings.
+
+
+\paragraph{Comparison with other analyses} 
+An alternative account has recently been proposed by Strother-Garcia et al.
+(2016).
+Using enriched strings, where each position bears prosodic properties (e.g., \textit{heavy, stress}), they characterize unbounded stress as CNPL expressions.
+The current analysis with TSL-SF is analogous in that it also addresses prosodic properties, but it formalizes them as features to be used in the mechanism of tier projection and substring evaluation.
+CNPL and TSL(-SF) are two incomparable formal classes, but TSL-SF has the advantage of staying closer to the hypothesis that phonological patterns are TSL\@.
+TSL-SF are in fact a subtype of independently motivated TSL extensions studied by De Santo (2016).
+
+\paragraph{Prosodic vs. segmental phonology}
+The step from TSL to TSL-SF for suprasegmental phonology is in line with the claim of Jardine (2014) that suprasegmental phonology is more powerful than segmental phonology.
+TSL-SF should not be extended to segmental phonology, where it would allow for various unattested patterns (e.g.\ First-Last harmony; Heinz 2016).
+Within the current analysis, the computational gap is derived from the limited availability of structure features.
+That is, in prosodic phonology the grammar can refer to structural features of syllables, but not in segmental phonology.
+This mirrors existing phonological theories where prosodic features such as \textit{stress} play roles only at a later stage of derivation (Hayes 1976).
+
+\paragraph{Conclusion} 
+TSL-SF makes structural features of syllables available in tier projection and substring evaluation.
+This expands the expressivity of TSL and accommodates unbounded stress patterns like non-final RHOL\@.
+Moreover, the fact structural features are available only in prosodic patterns accounts for complexity differences between prosodic and segmental phonology in a natural fashion while still encompassing both domains in the same formal class of TSL. 
+
+\vskip 0.5em
+%references
+\footnotesize
+\newcommand{\bibseparator}{\tikz\draw[draw=gray!55,fill=gray!55] (0,0) circle (.5ex);\,}
+\vskip 0.5em
+\noindent
+\textbf{De Santo, A.} 2016. {\em A Game of Tiers: Exploring the Formal Properties of TSL Languages}. Ms., Stony Brook University.
+\ \textbullet \ \textbf{Hayes, B}. 1976. {\em A Metrical Theory of Stress Rules}. Doctoral Dissertation, MIT.
+\ \textbullet \ \textbf{Hayes, B}. 1995. {\em Metrical Stress Theory: Principles and Case Studies}.
+% \ \textbullet \ \textbf{Heinz, J.} 2011. Computational phonology --- part I: Foundations. {\em Language and Linguistics Compass 5}(4), 140-152. 
+\ \textbullet \ \textbf{Heinz, J.} 2014. Culminativity times harmony equals unbounded stress. In {\em Word Stress: Theoretical and Typological Issues}, 255-275.
+\ \textbullet \ \textbf{Heinz, J.} 2016. {\em The computational nature of phonological generalizations}. Ms., University of Delaware. 
+\ \textbullet \ \textbf{Jardine, A.} 2014. Computationally, tones are different. {\em Under review with Phonology}. 
+\ \textbullet \ \textbf{McCarthy, J.}, 1979. On stress and syllabification. {\em LI 10}(3), 443-465. 
+\ \textbullet \ \textbf{Strother-Garcia, K., Hwangbo, H. J., \& Heinz, J.} 2016. {\em Characterizing and learning unbounded stress patterns with a restricted logic and enriched strings}. AMP 2016 abstract.
+\end{document}
