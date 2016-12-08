@@ -1,0 +1,37 @@
+\begin{tikzpicture}[level distance=2.5em, scale=.75]
+    \Tree
+        [.\node(target-wh){\color{purple}Move};
+            [.\node(target-head){\color{SeaGreen4}Move};
+                [.Merge
+                    \node(do){do};
+                    [.\node(target-nom){\color{blue}Move};
+                        [.Merge
+                            \node(source-head){\color{SeaGreen4}-ed};
+                            [.Merge
+                                \node(source-nom){\color{blue}Mary};
+                                [.Merge
+                                    \node(kiss){kiss};
+                                    [.\node(source-wh){\color{purple}Merge};
+                                        \node(which){which};
+                                        \node(man){man};
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    
+    \foreach \Head/\Features in {%
+        do/\fsel{T} \flcr{h} \flcr{wh} \fcat{C},
+        source-head/\fsel{V} \flcr{nom} \fcat{T} \flce{h},
+        source-nom/\fcat{D} \flce{nom},
+        kiss/\fsel{D} \fsel{D} \fcat{V},
+        which/\fsel{N} \fcat{D} \flce{wh}
+        }
+        \node[yshift=-.25em] at (\Head.south) {\tiny \color{gray} \Features};
+
+        % do man separately to shift the feature string a bit
+        \node[xshift=.75em, yshift=-.25em] at (man.south) {\tiny \color{gray} \fcat{N}};
+\end{tikzpicture}

@@ -1,0 +1,110 @@
+\begin{thebibliography}{16}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{{\tt #1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+
+\bibitem[{Graf(2010{\natexlab{a}})}]{Graf10PLC}
+Graf, Thomas. 2010{\natexlab{a}}.
+\newblock Comparing incomparable frameworks: A model theoretic approach to
+  phonology.
+\newblock {\em University of Pennsylvania Working Papers in Linguistics\/}
+  16:Article 10.
+\newblock \urlprefix\url{http://repository.upenn.edu/pwpl/vol16/iss1/10}.
+
+\bibitem[{Graf(2010{\natexlab{b}})}]{Graf10Thesis}
+Graf, Thomas. 2010{\natexlab{b}}.
+\newblock {\em Logics of phonological reasoning\/}.
+\newblock Master's thesis, University of California, Los Angeles.
+\newblock
+  \urlprefix\url{http://thomasgraf.net/doc/papers/LogicsOfPhonologicalReasoning.pdf}.
+
+\bibitem[{Graf(2016)}]{Graf16Phonology}
+Graf, Thomas. 2016.
+\newblock The power of locality domains in phonology.
+\newblock Ms., Stony Brook University.
+
+\bibitem[{Graf and Heinz(2016)}]{GrafHeinz16JOLLI}
+Graf, Thomas, and Jeffrey Heinz. 2016.
+\newblock Tier-based strict locality in phonology and syntax.
+\newblock Ms., Stony Brook University and University of Delaware.
+
+\bibitem[{Heinz(2015)}]{Heinz15}
+Heinz, Jeffrey. 2015.
+\newblock The computational nature of phonological generalizations.
+\newblock
+  \urlprefix\url{http://www.socsci.uci.edu/~lpearl/colareadinggroup/readings/Heinz2015BC_Typology.pdf},
+  ms., University of Delaware.
+
+\bibitem[{Heinz et~al.(2012)Heinz, Kasprzik, and Kötzing}]{Heinz.etal12}
+Heinz, Jeffrey, Anna Kasprzik, and Timo Kötzing. 2012.
+\newblock Learning with lattice-structure hypothesis spaces.
+\newblock {\em Theoretical Computer Science\/} 457:111--127.
+
+\bibitem[{Heinz et~al.(2011)Heinz, Rawal, and Tanner}]{Heinz.etal11}
+Heinz, Jeffrey, Chetan Rawal, and Herbert~G. Tanner. 2011.
+\newblock Tier-based strictly local constraints in phonology.
+\newblock In {\em Proceedings of the 49th Annual Meeting of the Association for
+  Computational Linguistics\/}, 58--64.
+\newblock \urlprefix\url{http://www.aclweb.org/anthology/P11-2011}.
+
+\bibitem[{Jardine(2015)}]{Jardine15}
+Jardine, Adam. 2015.
+\newblock Computationally, tone is different.
+\newblock {\em Phonology\/}
+  \urlprefix\url{http://udel.edu/~ajardine/files/jardinemscomputationallytoneisdifferent.pdf},
+  to appear.
+
+\bibitem[{Jardine and Heinz(2016)}]{JardineHeinz16}
+Jardine, Adam, and Jeffrey Heinz. 2016.
+\newblock Learning tier-based strictly 2-local languages.
+\newblock {\em Transactions of the ACL\/} 4:87--98.
+\newblock \urlprefix\url{https://aclweb.org/anthology/Q/Q16/Q16-1007.pdf}.
+
+\bibitem[{Kaplan and Kay(1994)}]{KaplanKay94}
+Kaplan, Ronald~M., and Martin Kay. 1994.
+\newblock Regular models of phonological rule systems.
+\newblock {\em Computational Linguistics\/} 20:331--378.
+\newblock \urlprefix\url{http://www.aclweb.org/anthology/J94-3001.pdf}.
+
+\bibitem[{Karttunen et~al.(1992)Karttunen, Kaplan, and
+  Zaenen}]{Karttunen.etal92}
+Karttunen, Lauri, Ronald~M. Kaplan, and Annie Zaenen. 1992.
+\newblock Two-level morphology with composition.
+\newblock In {\em COLING'92\/}, 141--148.
+\newblock \urlprefix\url{http://www.aclweb.org/anthology/C92-1025}.
+
+\bibitem[{McNaughton and Papert(1971)}]{McNaughtonPappert71}
+McNaughton, Robert, and Seymour Papert. 1971.
+\newblock {\em Counter-free automata\/}.
+\newblock Cambridge, MA: MIT Press.
+
+\bibitem[{Rogers et~al.(2010)Rogers, Heinz, Bailey, Edlefsen, Vischer,
+  Wellcome, and Wibel}]{Rogers.etal10}
+Rogers, James, Jeffrey Heinz, Gil Bailey, Matt Edlefsen, Molly Vischer, David
+  Wellcome, and Sean Wibel. 2010.
+\newblock On languages piecewise testable in the strict sense.
+\newblock In {\em The mathematics of language\/}, ed. Christan Ebert, Gerhard
+  Jäger, and Jens Michaelis, volume 6149 of {\em Lecture Notes in Artificial
+  Intelligence\/}, 255--265. Heidelberg: Springer.
+\newblock \urlprefix\url{http://dx.doi.org/10.1007/978-3-642-14322-9_19}.
+
+\bibitem[{Rogers and Pullum(2011)}]{RogersPullum11}
+Rogers, James, and Geoffrey~K. Pullum. 2011.
+\newblock Aural pattern recognition experiments and the subregular hierarchy.
+\newblock {\em Journal of Logic, Language and Information\/} 20:329--342.
+
+\bibitem[{Ruiz et~al.(1998)Ruiz, Espa{\~{n}}a, and Garc{\'i}a}]{RuizEtAl98}
+Ruiz, Jos{\'e}, Salvador Espa{\~{n}}a, and Pedro Garc{\'i}a. 1998.
+\newblock Locally threshold testable languages in strict sense: Application to
+  the inference problem.
+\newblock In {\em Grammatical inference: 4th international colloquium,
+  {ICGI}-98 {A}mes, {I}owa, {USA}, {J}uly 12--14, 1998 proceedings\/}, ed.
+  Vasant Honavar and Giora Slutzki, 150--161. Berlin: Springer.
+
+\bibitem[{Shieber(1985)}]{Shieber85}
+Shieber, Stuart~M. 1985.
+\newblock Evidence against the context-freeness of natural language.
+\newblock {\em Linguistics and Philosophy\/} 8:333--345.
+
+\end{thebibliography}

@@ -1,0 +1,22 @@
+\begin{tikzpicture}[text height=1em]
+    \node (1) at (0,0) {\LE};
+
+    \foreach \Node/\Ref/\Label in {2/1/e,
+                                   3/2/\textipa{\textesh},
+                                   4/3/i,
+                                   5/4/\textipa{\textesh},
+                                   6/5/i,
+                                   7/6/\RE}
+        \node (\Node) [right=.25em of \Ref] {\Label};
+
+    \node (tier-1) [above=1em of 1] {\LE};
+    \node (tier-3) [above=1em of 3] {\Teal{\textipa{\textesh}}};
+    \node (tier-5) [above=1em of 5] {\Teal{\textipa{\textesh}}};
+    \node (tier-7) [above=1em of 7] {\RE};
+
+    \node (label-base) [left=2em of 1] {\textbf{Base:}};
+    \node (label-base) [left=2em of tier-1] {\textbf{Tier:}};
+
+    \foreach \Node in {1,3,5,7}
+        \draw (\Node) to (tier-\Node);
+\end{tikzpicture}

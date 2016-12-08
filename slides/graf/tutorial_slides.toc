@@ -1,0 +1,5 @@
+\beamer@endinputifotherversion {3.33pt}
+\beamer@sectionintoc {1}{The Subregular Enterprise}{3}{0}{1}
+\beamer@sectionintoc {2}{(Tier-Based) Strictly Local Phonotactics}{13}{0}{2}
+\beamer@sectionintoc {3}{Subregular Mappings for Phonology}{26}{0}{3}
+\beamer@sectionintoc {4}{(Tier-Based) Strictly Local Syntax}{30}{0}{4}
