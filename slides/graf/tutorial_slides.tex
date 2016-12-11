@@ -73,37 +73,11 @@
     This allows predictions for
     %
     \begin{itemize}
-        \item typology
-        \item learning
-        \item cognitive architecture
+        \item typology \subpoint{(e.g.\ no center embedding in phonology)}
+        \item learning \subpoint{(required input, what must be in UG)}
+        \item cognitive architecture \subpoint{(type of memory, structural inference rules)}
     \end{itemize}
     }
-\end{frame}
-
-\begin{frame}{Implications of Formal Complexity}
-    \begin{columns}
-        \column{.7\linewidth}
-        \citet{HeinzIdsardi11, HeinzIdsardi13} highlight\\
-        the implications:
-        %
-        \begin{itemize}
-            \item different typology\\
-                  \subpoint{center embedding, crossing dependencies}
-            \item different memory architecture\\
-                  \subpoint{flat \& finite VS unbounded nested stacks}
-            \item different learning algorithms\\
-                  \subpoint{much harder for syntax}
-        \end{itemize}
-
-        \column{.25\linewidth}
-        \centering
-        \scriptsize
-        \includegraphics[width=1\linewidth]{./img/heinz_crop}\\
-
-        \bigskip
-        \includegraphics[width=1\linewidth]{./img/idsardi}\\
-    \end{columns}
->>>>>>> d5ba3cd716b0cbadc1ad522be937109c5a2c07ae
 \end{frame}
 
 \begin{frame}{Too Many Patterns are Regular}
@@ -117,13 +91,13 @@
     \end{itemize}
     %
     \pause
-    \begin{example}
+    \begin{exampleblock}{Examples of Regular yet Unattested Patterns}
         \begin{itemize}
             \item First-last consonant harmony
-            \item Every word with a plosive contains an open syllable
-            \item Word with at least 3 suffixes must have exactly 5 prefixes
+            \item Every word with a plosive contains an open syllable.
+            \item Words with at least 3 suffixes must have exactly 5 prefixes.
         \end{itemize}
-    \end{example}
+    \end{exampleblock}
 \end{frame}
 
 \begin{frame}{Subregular Languages}
@@ -268,16 +242,18 @@
 
 \begin{frame}{SL is Too Weak}
     \begin{itemize}
-        \item SL grammars only handle unbounded dependencies.
+        \item SL grammars only handle locally bounded dependencies.
         \item But some processes in phonology are unbounded.
     \end{itemize}
     %
     \begin{exampleblock}{Samala Sibilant Harmony \citep[16]{Heinz15}}
-        \begin{tabular}{r@{\hspace{.1em}}l}
-                               & \textesh tojonowonowa\textesh\\
-            \visible<2->{$^*}$ & \visible<2->{stojonowonowa\textesh}\\
-            \visible<2->{$^*}$ & \visible<2->{\textesh tojonowonowas}
-        \end{tabular}
+        \begin{center}
+            \begin{tabular}{r@{\hspace{.1em}}l}
+                                   & \textesh tojonowonowa\textesh\\
+                \visible<2->{$^*}$ & \visible<2->{stojonowonowa\textesh}\\
+                \visible<2->{$^*}$ & \visible<2->{\textesh tojonowonowas}
+            \end{tabular}
+        \end{center}
     \end{exampleblock}
 \end{frame}
 
@@ -293,59 +269,50 @@
 
     \begin{center}
         \begin{forest}
-            [,phantom,for tree={grow'=90}
-                [\textbf{\{b,c\}-Tier:}, l=5.5em]
+            [,phantom,for tree={grow'=90,s sep=0em}
+                [\textbf{\footnotesize s\slash \textesh-Tier:}, l=5.5em]
                 [\LE,name=le
                     [\LE,name=tle]
                 ]
-                [a]
-                [b,name=b1
-                    [b,name=tb1]
+                [s,name=s1
+                    [s,name=ts1]
                 ]
+                [t]
+                [o]
+                [j]
+                [o]
+                [n]
+                [o]
+                [w]
+                [o]
+                [n]
+                [o]
+                [w]
                 [a]
-                [c,name=c1
-                    [c,name=tc1]
-                ]
-                [a]
-                [a]
-                [a]
-                [b,name=b2
-                    [b,name=tb2]
+                [\textesh,name=s2
+                    [\textesh,name=ts2]
                 ]
                 [\RE,name=re
                     [\RE,name=tre]
                 ]
-                % some white space
-                [,phantom]
                 % grammar
-                [$^*$bcb,l=4em,name=ngram,draw=purple,thick,fill=Purple!75,opacity=.2]
+                [,phantom
+                    [$^*$\textesh s,name=ngram1,draw=teal,thick,fill=teal!75,opacity=.2]
+                ]
+                [,phantom
+                    [$^*$s\textesh,name=ngram2,draw=purple,thick,fill=Purple!75,opacity=.2]
+                ]
             ]
             %
-            \node [fit=(tb1)(tc1)(tb2),draw=Purple,thick,fill=Purple!75,opacity=.2] (illicit) {};
-            \draw[Purple!75,thick] (illicit) |- ($(ngram)+(0em,4em)$) -- (ngram);
-        \end{forest}
-    \end{center}
-\end{frame}
-
-\begin{frame}{Example: Sibilant Harmony}
-    %fixme: redo examples from Samala
-    \begin{center}
-        \begin{tabular}{l@{\hspace{2em}}l}
-            \textbf{Constraint} & \textbf{Forbidden $n$-grams on sibilant tier}\\
+            % add some grammar fluff
+            \node at (ngram1.west) {\{};
+            \node at ($(ngram1.south east) !.5! (ngram2.south west)$) [yshift=.25em] {,};
+            \node at (ngram2.east) {\}};
             %
-            \Constraint{\Teal{[$\alpha$ ant]} $\cdots$ \Purple{[$-\alpha$ ant]}}
-            &
-            \Teal{\textipa{\textesh}}\Purple{\textipa{s}},
-            \Teal{\textipa{s}}\Purple{\textipa{\textesh}}
-        \end{tabular}
-    \end{center}
-
-    \bigskip
-    \begin{center}
-        \input{./code/tikz/tier_eshisi.tikz}
-
-        \bigskip
-        \input{./code/tikz/tier_eshishi.tikz}
+            % tier highlight
+            \node [fit=(ts1)(ts2),draw=Purple,thick,fill=Purple!75,opacity=.2,visible on=<2>] (illicit) {};
+            \draw [Purple!75,thick,visible on=<2>] (illicit) |- ($(ngram2)+(0em,2em)$) -- (ngram2);
+        \end{forest}
     \end{center}
 \end{frame}
 
@@ -358,34 +325,98 @@
     \bigskip
     \begin{tabular}{rl}
         \textbf{Tier} & contains segments with primary stress\\
-        \textbf{$n$-grams}         & \Teal{ś}\Purple{ś} and \Teal{\LE\RE}
+        \textbf{$n$-grams}         & \Teal{\LE}\Purple{\RE} and \Teal{ś}\Purple{ś}
     \end{tabular}
 
     \bigskip
     \begin{center}
-        \input{./code/tikz/tier_ala.tikz}
-        \hspace{2em}
-        \input{./code/tikz/tier_AlA.tikz}
-
-        \medskip
-        \input{./code/tikz/tier_Ala.tikz}
-        \hspace{2em}
-        \input{./code/tikz/tier_alA.tikz}
+        \begin{tabular}{c@{\hspace{2em}}c}
+        \begin{forest}
+            [,phantom,for tree={grow'=90,s sep=0em}
+                [\LE,name=le
+                    [\Teal{\LE},name=tle]
+                ]
+                [a]
+                [l]
+                [a]
+                [\RE,name=re
+                    [\Purple{\RE},name=tre]
+                ]
+            ]
+        \end{forest}
+        &
+        \begin{forest}
+            [,phantom,for tree={grow'=90,s sep=0em}
+                [\LE,name=le
+                    [\LE,name=tle]
+                ]
+                [á
+                    [\Teal{á}]
+                ]
+                [l]
+                [á
+                    [\Purple{á}]
+                ]
+                [\RE,name=re
+                    [\RE,name=tre]
+                ]
+            ]
+        \end{forest}
+        \\
+        \begin{forest}
+            [,phantom,for tree={grow'=90,s sep=0em}
+                [\LE,name=le
+                    [\LE,name=tle]
+                ]
+                [á
+                    [á]
+                ]
+                [l]
+                [a]
+                [\RE,name=re
+                    [\RE,name=tre]
+                ]
+            ]
+        \end{forest}
+        & 
+        \begin{forest}
+            [,phantom,for tree={grow'=90,s sep=0em}
+                [\LE,name=le
+                    [\LE,name=tle]
+                ]
+                [a]
+                [l]
+                [á
+                    [á]
+                ]
+                [\RE,name=re
+                    [\RE,name=tre]
+                ]
+            ]
+        \end{forest}
+        \end{tabular}
     \end{center}
 \end{frame}
 
 \begin{frame}{What TSL Cannot do}
-    
+    \begin{itemize}
+        \item \textbf{First-Last Harmony}\\
+            \subpoint{because first\slash last is not a segmental property}
+        \item \textbf{Plosive implies open syllable}\\
+            \subpoint{cannot enforce Boolean conditionals}
+        \item \textbf{Mix local and non-local depedencies}\\
+            \subpoint{e.g.\ sibilant harmony does not apply to sibilants followed by a nasal}
+    \end{itemize}
+    \pause
+    \begin{block}{Attested Patterns Beyond TSL?}
+        \begin{itemize}
+            \item \textbf{Tone Plateauing} \subpoint{(but IBSP; \citealp{Graf16Phonology})}
+            \item \textbf{Non-Final RHOL} \highlight{[Baek's talk]}\\
+            \item \textbf{Multiple Harmony} \highlight{[Aks\"{e}nova's talk]}\\
+        \end{itemize}
+    \end{block}
 \end{frame}
 
-\begin{frame}{Attested Patterns Beyond TSL?}
-    A few other patterns may go beyond TSL.
-    %
-    \begin{itemize}
-        \item \textbf{Non-Final RHOL} \highlight{[Baek's talk]}\\
-        \item \textbf{Multiple Harmony} \highlight{[Aks\"{e}nova's talk]}\\
-    \end{itemize}
-\end{frame}
 
 \begin{frame}{Complexity of Phonology}
     \begin{itemize}
@@ -442,19 +473,96 @@
             surface forms can be studied, too.
         \item Regular mappings are enough.\\
             \citecolor{\citep{KaplanKay94}}
-        \item What about subregular mappings?
+        \item What about \highlight{subregular mappings}?
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Input Strictly Local Mappings}
-    \begin{block}{Input Strictly Local (ISL)}
+\begin{frame}{Strictly Local Mappings}
+    \begin{block}{Strictly Local (SL)}
         \begin{itemize}
             \item Move through string from left to right.
-            \item Rewrite $x$ as $y$ based on previous $n$ symbols in input string.
-            \item Output is \highlight{not considered}!
+            \item Rewrite $x$ as $y$ based on previous $n$ symbols in\ldots
+                %
+                \begin{center}
+                    \begin{tabular}{rl}
+                        input string: & input strictly local (\textbf{ISL})\\
+                        output string: & output strictly local (\textbf{OSL})\\
+                    \end{tabular}
+                \end{center}
+            \item Mapping never considers both input and output.\\
         \end{itemize}
     \end{block}
     %
+    \begin{example}
+        \begin{columns}
+            \column{.45\linewidth}
+            \begin{center}
+                \begin{tabular}{rl}
+                    \textbf{SL$_3$-mapping}: $\text{V} \rightarrow \text{C} \mid \text{VC} \_$\\
+                    \textbf{Input string}: CVCVCVCV
+                \end{tabular}
+            \end{center}
+            
+            \column{.25\linewidth}
+            \begin{tabular}{l}
+                \textbf{ISL Output}\\
+                \visible<2->{%
+                    \alert<3-4,6-7,9-10>{C}%
+                    \alert<5-7,9-10,12-13>{V}%
+                    \alert<8-10,12-13,15-16>{C}%
+                    \alert<11-13,15-16,18-19>{V}%
+                    \alert<14-16,18-19,21-22>{C}%
+                    \alert<17-19,21-22,24-25>{V}%
+                    \alert<20-22,24-25>{C}%
+                    \alert<23-25>{V}%
+                }
+                \\
+                \visible<4->{C}%
+                \visible<7->{V}%
+                \visible<10->{C}%
+                \visible<13->{C}%
+                \visible<16->{C}%
+                \visible<19->{C}%
+                \visible<22->{C}%
+                \visible<25->{C}%
+            \end{tabular}
+            \column{.25\linewidth}
+            \begin{tabular}{l}
+                \textbf{OSL Output}\\
+                \visible<2->{%
+                    \alert<26-27>{C}%
+                    \alert<28-30>{V}%
+                    \alert<31-33>{C}%
+                    \alert<34-36>{V}%
+                    \alert<37-39>{C}%
+                    \alert<40-42>{V}%
+                    \alert<43-45>{C}%
+                    \alert<46->{V}%
+                }
+                \\
+                \visible<27->{\alert<29-30,32-33>{C}}%
+                \visible<30->{\alert<32-33,35-36>{V}}%
+                \visible<33->{\alert<35-36,38-39>{C}}%
+                \visible<36->{\alert<38-39,41-42>{C}}%
+                \visible<39->{\alert<41-42,44-45>{C}}%
+                \visible<42->{\alert<44-45,47-48>{V}}%
+                \visible<45->{\alert<47-48>{C}}%
+                \visible<48>{C}%
+            \end{tabular}
+        \end{columns}
+
+    \end{example}
+\end{frame}
+
+\begin{frame}{How Many Processes are SL?}
+    \begin{itemize}
+        \item All locally bounded processes\\ 
+            \subpoint{assimilation, dissimilation, vowel harmony, even metathesis}
+        \item \textbf{But:} mappings where local processes interact may not be SL\\
+            \subpoint{multiple metathesis \highlight{[Takahasi's talk]}}
+        \item Some processes are not locally bounded and thus not SL.\\
+            \subpoint{sibilant harmony, tone plateauing, sour grapes harmony}
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{A Note on TSL}
@@ -679,17 +787,17 @@
 \end{frame}
 
 
-\section*{Conclusion}
-\subsection*{Conclusion}
-\begin{frame}{Conclusion}
-
-\end{frame}
+% \section*{Conclusion}
+% \subsection*{Conclusion}
+% \begin{frame}{Conclusion}
+%
+% \end{frame}
 
 \appendix
 \begin{frame}[allowframebreaks]{References}
     \scriptsize
     \def\newblock{}
-    \bibliography{./bib/yale2016}
-    \bibliographystyle{./bib/linquiry3}
+    \bibliography{./workshop}
+    \bibliographystyle{./linquiry3}
 \end{frame}
 \end{document}
