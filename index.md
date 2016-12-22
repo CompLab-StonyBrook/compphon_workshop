@@ -54,7 +54,7 @@ For the Frontiers talk dinner, write to [workshop@thomasgraf.net](mailto:worksho
 [![Looks like Aniello's talk really got Jeff thinking](./img/aniello_jeff_small.jpg)](./img/aniello_jeff.jpg)  
 *Looks like Aniello's talk really got Jeff thinking*
 
-[![Two slides into Alëna's talk we already encounter the first exotic language](./img/auditorium_small.jpg)](./img/auditorium.jpg)  
+[![Two slides into Alëna's talk we already encounter the first exotic language](./img/alena_audience_small.jpg)](./img/alena_audience.jpg)  
 *Two slides into Alëna's talk we already encounter the first exotic language*
 
 [![Jon always asks the toughest questions: Who cares?](./img/jon_whocares_small.jpg)](./img/jon_whocares.jpg)  
