@@ -44,12 +44,12 @@ No registration is required for the workshop itself.
 For the Frontiers talk dinner, write to [workshop@thomasgraf.net](mailto:workshop@thomasgraf.net).
 
 [graf_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/graf/tutorial_slides.pdf?raw=true
-[baek_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/baek.pdf?raw=true
+[baek_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/baek/baek.pdf?raw=true
 [desanto_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/desanto/desanto.pdf?raw=true
 [aksenova_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/aksenova/aksenova.pdf?raw=true
 [takahashi_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/takahashi/takashi.pdf?raw=true
 [peng_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/peng/peng.pdf?raw=true
-[rawski_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/rawski.pdf?raw=true
+[rawski_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/rawski/rawski.pdf?raw=true
 [wu_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/wu/wu.pdf?raw=true
 [lei_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/lei/lei.pdf?raw=true
 [suzuki_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/suzuki/suzuki.pdf?raw=true
