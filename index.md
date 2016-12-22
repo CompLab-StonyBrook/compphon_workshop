@@ -51,7 +51,7 @@ For the Frontiers talk dinner, write to [workshop@thomasgraf.net](mailto:worksho
 [peng_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/peng/peng.pdf?raw=true
 [rawski_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/rawski/rawski.pdf?raw=true
 [wu_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/wu/wu.pdf?raw=true
-[lei_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/lei/lei.pdf?raw=true
+[liu_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/liu/liu.pdf?raw=true
 [suzuki_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/suzuki/suzuki.pdf?raw=true
 [baek_abstract]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/abstracts/baek.pdf?raw=true
 [desanto_abstract]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/abstracts/desanto.pdf?raw=true
