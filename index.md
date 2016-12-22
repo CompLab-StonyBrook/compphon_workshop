@@ -60,6 +60,8 @@ For the Frontiers talk dinner, write to [workshop@thomasgraf.net](mailto:worksho
 [![Jon always asks the toughest questions: Who cares?](./img/jon_whocares_small.jpg)](./img/jon_whocares.jpg)  
 *Jon always asks the toughest questions: Who cares?* 
 
+Thanks to Sophie Moradi for taking pictures throughout the day!
+
 [graf_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/graf/tutorial_slides.pdf?raw=true
 [baek_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/baek/baek.pdf?raw=true
 [desanto_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/desanto/desanto.pdf?raw=true
