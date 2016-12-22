@@ -43,6 +43,12 @@ Please send an email to [workshop@thomasgraf.net](mailto:workshop@thomasgraf.net
 No registration is required for the workshop itself.
 For the Frontiers talk dinner, write to [workshop@thomasgraf.net](mailto:workshop@thomasgraf.net).
 
+# Workshop Pictures
+
+[![Our seminar room, unusually packed](./img/auditorium_small.jpg)](./img/auditorium.jpg)
+*Our seminar room, unusually packed*
+
+
 [graf_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/graf/tutorial_slides.pdf?raw=true
 [baek_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/baek/baek.pdf?raw=true
 [desanto_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/desanto/desanto.pdf?raw=true
