@@ -1,0 +1,8 @@
+title: Computational Phonology Workshop
+description: Part of the Computational Phonology seminar at Stony Brook University
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-cayman
+
+gems:
+  - jekyll-mentions
