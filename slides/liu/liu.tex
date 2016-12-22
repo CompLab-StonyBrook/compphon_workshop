@@ -1,0 +1,276 @@
+\documentclass[xcolor={usenames,svgnames,x11names,table}]{beamer}
+
+\usetheme{SBU}
+
+\usepackage{mypackages}
+\usepackage{mycommands}
+%\usepackage{charter} % for Charter font
+
+\title[TSL scope]{%
+    \texorpdfstring{%
+    Capturing scope ambiguity with \\ Tier-Local Syntax}
+    {Capturing scope ambiguity with Tier-Local Syntax}
+    }
+\author[Liu]{\texorpdfstring{%
+                            Lei Liu
+                            }
+                            {Lei Liu} 
+                        }
+\institute{Stony Brook University\\\texttt{lei.liu.1@stonybrook.edu}}
+\date{CompPhon workshop\\Dec 12, 2016}
+
+
+\begin{document}
+
+\unnumbered{
+\begin{frame}
+	\titlepage
+\end{frame}
+}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section[Puzzle]{Puzzle: C-Command vs. TSL syntax}
+\subsection{C-Command}
+\begin{frame}{C-Command at work}
+\begin{tabularx}{\textwidth}{r|c|c}
+&Syntax&TSL\\
+C-Command&$\color{teal}{\checkmark}$&\color{Brown}\shrug\\
+\end{tabularx}
+
+\begin{example}<2->
+    \begin{exe}
+        \ex<2-> Someone read every book. \hfill \surface, \inverse
+    \end{exe}
+\end{example}
+    \begin{itemize}
+    	\item<3-> The scope of $\alpha$ $=$  the C-Command domain of $\alpha$. \citep{may1985logical}
+    \end{itemize}
+\begin{multicols}{2}
+\onslide<3->
+\begin{tabularx}{.95\linewidth}{X|X}
+\surface&\inverse\\
+\hline
+$\text{Someone}_{i}$ $\mathbb{C}$ $\text{every.book}_j$&$\text{every.book}_j$ $\mathbb{C}$ \par $\text{Someone}_{i}$\\
+\end{tabularx}
+\onslide<4->
+ 	\begin{forest}
+        	[S
+            	[$\text{every.book}_j$]
+            	[S
+                	[$\text{Someone}_{i}$ read $\text{t}_j$, roof]
+                ]
+            ]
+    \end{forest}
+
+\end{multicols}
+\end{frame}
+
+\subsection{TSL Syntax}
+\begin{frame}{TSL syntax}
+    \begin{itemize}
+    	\item Dependencies of syntax captured by Tier-based Strictly Local (TSL) grammars over trees \citep{Graf16Yaletalk}
+    	\item $\mathbb{T} = \{s, QPs\}$
+    \end{itemize}
+    \begin{forest}
+    [,phantom
+    [S, name=s
+        [Someone, name=np1]
+        [VP
+            [read]
+            [every.book, name=np2]
+        ]
+    ]
+    [s,name=ts, color = {DarkCyan}
+    	[someone, name=tnp1, color = {DarkCyan}]
+    	[every.book, name=tnp2, color = {DarkCyan}]
+    ]
+    ]
+    %
+    \foreach \Node in {s,np1,np2}
+       \draw[->,dashed,teal,bend left=15] (\Node) to (t\Node);
+\end{forest}
+
+\pause
+On the tier...
+    \begin{itemize}
+    	\item {\color{Brown}C-Command}  gone
+    	\item {\color{Teal}Locality} gained
+    \end{itemize}
+\pause
+Can TSL handle scope interpretation without C-Command? Yes!
+\end{frame}
+
+\section[Proposal]{Proposal: TSL with proper C-Command domain}
+\begin{frame}{Proposal}
+For a quantificational phrase:
+    \begin{itemize}
+        \item Higher on tier, higher in scope
+        \item Ambiguous when mutual C-Command found in... 
+            \begin{itemize}
+                \item declarative sentences, within a {\color{Brown}TP}
+                \item \emph{wh}-questions, within a {\color{Brown}vP}
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Declarative sentence}
+
+\begin{forest}
+   [,phantom
+       [CP,name=c[TP,name=s
+            [Someone, name=np1]
+            [T'
+                [T]
+                [VP
+                    [read]
+                    [{every book}, name=np2]
+                ]
+            ]
+       ]]
+       [CP,name=tc,color = {DarkCyan}[TP,name=ts, color = {Brown}
+           [someone,name=tnp1, color = {DarkCyan}]
+           [{every book},name=tnp2, color = {DarkCyan}]
+       ]]
+   ]
+   %
+   \foreach \Node in {c,s,np1,np2}
+       \draw[->,dashed,teal,bend left=15] (\Node) to (t\Node);
+\end{forest}
+\pause
+\begin{center}
+{\color{Brown}Ambiguous!}
+\end{center}
+\end{frame}
+
+\begin{frame}{\emph{Wh}-questions}
+
+\begin{forest}
+   [,phantom
+       [CP,name=c
+       		[Who, name=np1]
+       		[TP
+            	[T'
+                	[T]
+                	[vP,name=v
+                    	[read]
+                    	[{every book}, name=np2]
+                	]
+            	]
+       		]	
+       ]
+       [cp,name=tc,color = {DarkCyan}
+       		[who,name=tnp1, color = {DarkCyan}]
+           	[vP,name=tv, color = {Brown}
+           		[every.book, name=tnp2, color = {DarkCyan}]
+       		]
+   		]
+   	]
+   %
+   \foreach \Node in {c,v,np1,np2}
+       \draw[->,dashed,teal,bend left=15] (\Node) to (t\Node);
+\end{forest}
+\pause
+\begin{exe}
+	\ex Who read every book? \hfill {\color{Brown}\emph{who}~\before~\emph{every.book}!}
+\end{exe}
+\end{frame}
+
+\section[Prediction]{Prediction: wh-in-situ and QP-domain correlation}
+\begin{frame}{Prediction}
+    \begin{itemize}[<+->]
+        \item subject \emph{wh}-questions are ambiguous in \emph{wh}-in-situ languages
+        \begin{exe}
+        	\ex \gll
+        	Shenme.she yao.LE mei.wei xiangdao?\\
+        	what.snake bite.LE every.CL guide\\
+        	``What snake bit every guide?'' \hfill \surface, \inverse
+        \end{exe}
+        \item more ``complex'' the QPs, smaller the domain relevant for C-Command evaluation.
+        	\begin{itemize}
+        		\item QP - TP
+        		\item wh, QP - vP
+        		\item double objects - smaller than vP
+        	\end{itemize}
+    \end{itemize}
+\end{frame}
+
+\unnumbered{
+\begin{frame}{Chinese subject \emph{wh}-question}
+\begin{forest}
+   [,phantom
+       [CP,name=c[TP,name=s
+            [{Shenme.she\\\emph{what.snake}}, name=np1]
+            [T'
+                [T]
+                [VP
+                    [{yao.LE\\\emph{bite.LE}}]
+                    [{mei.wei.xiangdao\\\emph{every.CL.guide}}, name=np2]
+                ]
+            ]
+       ]]
+       [CP,name=tc,color = {DarkCyan}[TP,name=ts, color = {Brown}
+           [{Shenme.she\\\emph{what.snake}},name=tnp1, color = {DarkCyan}]
+           [{mei.wei.xiangdao\\\emph{every.CL.guide}},name=tnp2, color = {DarkCyan}]
+       ]]
+   ]
+   %
+   \foreach \Node in {c,s,np1,np2}
+       \draw[->,dashed,teal,bend left=15] (\Node) to (t\Node);
+\end{forest}
+\begin{center}
+{\color{Brown}Ambiguous!}
+\end{center}
+\end{frame}
+}
+
+\unnumbered{
+\begin{frame}{Double Object Construction}
+\begin{multicols}{2}
+\begin{forest}
+   [,phantom
+       [CP,name=c
+       		[vP, roof
+            [John]
+            [v'
+                [v]
+                [vP
+                    [a.student, name = np1]
+                    [v'
+	                    [v]
+	                    [vP, name = v
+	                    	[give]
+	                    	[every.book, name = np2]
+	                    ]
+	                ]
+                ]
+            ]
+           	]
+       ]
+       [CP,name=tc,color = {DarkCyan}
+       		[a.student,name=tnp1, color = {DarkCyan}]
+       		[vP,name=tv, color = {Brown}
+           	   	[every.book,name=tnp2, color = {DarkCyan}]
+       		]
+       ]
+   ]
+   %
+   \foreach \Node in {c,v,np1,np2}
+       \draw[->,dashed,teal,bend left=15] (\Node) to (t\Node);
+\end{forest}
+\begin{exe}
+\ex John gave a student every book.
+\end{exe}
+{\color{Brown}\emph{a.student}~\before~\emph{every.book}!}
+\end{multicols}
+\end{frame}
+}
+
+\unnumbered{
+\begin{frame}{Reference}
+\bibliography{Syntaxbib2016fall}
+\end{frame}
+}
+\end{document}

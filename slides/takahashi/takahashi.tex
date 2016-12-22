@@ -1,0 +1,519 @@
+\documentclass[professionalfonts, xcolor={usenames,svgnames,x11names,table}]{beamer}
+
+\usetheme{SBU}
+\usepackage[charter]{mathdesign}
+\usepackage[scaled]{helvet}
+\usepackage{linguex}
+\usepackage{color,xcolor,ucs}
+
+% For IPA
+%\usepackage{fontspec,xltxtra, xunicode}
+%\setromanfont{Times New Roman}	
+%\setsansfont{Tahoma}
+%\usepackage{tipa}
+%\usepackage[utf8]{inputenc}
+
+\usepackage{mypackages}
+\usepackage{mycommands}
+\newcommand{\subpoint}[1]{{small\color{LightSteelBlue4}#1}}
+% \renewcommand{\treeload}[1]{} % uncomment to prevent trees from loading
+% --> faster compilation
+\colorlet{fhighlight}{orange}
+
+\title[SMNF MGs]{%
+	\texorpdfstring{Multiple metathesis is strictly local: \\ evidence from stress driven metathesis}%
+	{Multiple metathesis is strictly local: evidence from stress driven metathesis}}
+\author{%
+	Chikako Takahashi
+}
+
+\institute{Stony Brook University\\\texttt{chikako.takahashi@stonybrook.edu}}
+\date{Computational Phonology Workshop\\Dec 12, 2016}
+
+
+\begin{document}
+	\unnumbered{
+		\begin{frame}
+			\titlepage
+		\end{frame}
+	}
+	
+	\unnumbered{
+		\begin{frame}{Overview}
+			\begin{block}{What I would like to show today}
+			\pause
+			%	\begin{alertblock}{\ldots opens many new research avenues!}
+			\begin{itemize}
+				\item Some attested metathesis mappings: NOT ISL.  
+				\item Instead, OSL (or beyond) with a large locality domain.
+				\item Separating the stress pattern from related metathesis \\ $\rightarrow$  3-ISL
+			\end{itemize}
+		%	\end{alertblock}
+			\end{block}
+			
+			
+			\pause 
+			\begin{center}
+			\highlight{Factorization of the grammar matters! }
+			\end{center}	
+		
+		\end{frame}
+	}
+	
+	\unnumbered{
+		\begin{frame}{Outline}
+			\tableofcontents
+		\end{frame}
+	}
+	
+	\section[Metathesis]{Metathesis}
+	
+	\subsection{}
+	\begin{frame}{Local Metathesis}
+		\begin{block}{Metathesis}
+			\begin{center}
+				Transposition of two segments \\
+				\vspace{3mm}
+			   \textbf{a b} \hspace{5mm} $\rightarrow$ \hspace{5mm} \textbf{b a} \\
+			   \textbf{a }b \textbf{c} \hspace{5mm} $\rightarrow$ \hspace{5mm} \textbf{c }b \textbf{a}
+		    \end{center}
+		 \end{block}
+	 
+	 \pause
+		\begin{block}{Local Metathesis}
+			\begin{center}
+				Transposition of \highlight{two adjacent} segments \\
+				\vspace{3mm}
+				(Kwara'ae)  \hspace{5mm}  /sa\textbf{lo}/ \hspace{5mm}	$\rightarrow$ \hspace{5mm}   sa\textbf{ol}	\\
+					\begin{flushright}
+					(Heinz 2004)
+					\end{flushright}
+			\end{center}										
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Metathesis in Kwara'ae}
+		\textbf{Kwara'ae}\\
+		\begin{itemize}
+			\item an Austronesian language spoken in the Solomon Islands
+			\item exhibits synchronic CV-metathesis (Normal Form)
+		\end{itemize} 
+		
+		\begin{center}
+				 Two speech registers in Kwara'ae (from Heinz 2005, p.1) \label{ex1} \\
+				 \vspace{2mm}
+				\begin{tabular}{lll}
+					\textbf{Citation} &   \textbf{Normal} &\\
+					\only<1>{loʔi}\only<2>{lo\textcolor{red}{ʔi}}  & \only<1>{loiʔ}\only<2>{lo\textcolor{red}{iʔ}} &   `snake'\\ 
+					\only<1>{buri}\only<2>{bu\textcolor{red}{ri}}	  & \only<1>{buir}\only<2>{bu\textcolor{red}{ir}} &   `behind'\\ 
+					\only<1>{bore}\only<2>{bo\textcolor{red}{re}}	  & \only<1>{boer}\only<2>{bo\textcolor{red}{er}} &   `although'\\ 
+				\end{tabular}
+		\end{center}
+	\end{frame}
+	
+	\section[ISL]{Metathesis is ISL}
+	\begin{frame}{Metathesis is ISL}
+	%	\small
+	\begin{alertblock}{Chandlee (2015)}
+		Metathesis is Input Strictly Local (ISL)
+	\end{alertblock}
+	\begin{exampleblock}{}
+		\begin{center}
+		Rotuman word-final CV metathesis (CV $\rightarrow$ VC) \\
+		\vspace{3mm}
+		\begin{tabular}{llll}
+			ho\textbf{sa} & $\rightarrow$ & ho\textbf{as} & `flower' \\
+			hu\textbf{la} &	$\rightarrow$ & hu\textbf{al} & `moon'  \\
+		\end{tabular}
+		\end{center}
+	\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Input/Output Strictly Local}
+
+	\begin{block}{}
+	\highlight{Strictly Local (SL) functions} examine a string from left to right and rewrite the symbol based on the previous \textit{n}-symbols. 
+	\end{block}
+	\vspace{3mm}
+	\indent \highlight{Input Strictly Local (ISL) functions}: \\
+	The output element depends on the previous \textit{n}-symbols \\ in the \textit{input}.\\
+	\vspace{3mm}
+	\indent \highlight{Output Strictly Local (OSL) functions}: \\
+	The output element depends on the previous \textit{n}-symbols \\ in the \textit{output}.	
+	\end{frame}
+
+	\begin{frame}{Input Strictly Local (ISL)}
+		
+	\begin{figure}[!hb]
+		\centering
+		\includegraphics[width=5in]{ISL_figure.png} 
+		\caption{The element in the lightly shaded cell only depends on the corresponding element in the darkly shaded cells and the its preceding element (Chandlee 2015, Heinz 2016).}
+		%For every Input Strictly 2-Local function, the output string u of each input element x depends only on x and the input element previous to x.
+	\end{figure} 
+
+	\end{frame}
+	
+	\begin{frame}{Rotuman metathesis is 3-ISL}
+		Chandlee (2015)
+		\begin{center}
+		\begin{tabular}{p{2.5em}p{2.5em}p{2.5em}p{2.5em}p{2.5em}p{2.5em}p{2.5em}p{2.5em}}
+		\textbf{Input}& & $\rtimes$	   	& C  & V  &\textbf{C}  &\textbf{V}  & $\ltimes$ \\
+		& & \only<2-5>{$\rtimes$}\only<1>{\colorbox{MistyRose}{$\rtimes$}}  &  	\only<1-2>{\colorbox{MistyRose}{h}} \only<3-5>{h}  & \only<1-3>{\colorbox{MistyRose}{o}} \only<4-5>{o}  & \only<2-5>{\colorbox{MistyRose}{s}} \only<1>{\textbf{s}} & \only<3-5>{\colorbox{MistyRose}{a}} \only<1-2>{\textbf{a}} & \only<4-5>{\colorbox{MistyRose}{$\ltimes$}} \only<1-3>{\textbf{$\ltimes$}} \\
+		&&				 &	&	\only<1>{$\downarrow$}	&  &	& \only<4>{$\downarrow$}		\\
+		\textbf{Output}&& \only<1-4>{$\rtimes$}	 &		&	\only<1-5>{ho}	&		&		& \only<4-5>{\textbf{as}} $\ltimes$ \\ 		
+		\end{tabular}
+		\end{center}
+	
+		\begin{center}
+		\vspace{7mm}
+		\only<5>{\highlight{It is 3-ISL because the target sequence is `CV$\ltimes$'.}}  
+		\end{center}
+	
+	\end{frame}
+	%\only<1>{loʔi}
+	\section[MM is OSL]{Multiple Metathesis is (beyond) OSL}
+	\begin{frame}{Multiple Metathesis cannot be ISL}	
+		Kwara'ae exhibits cases of \textbf{multiple metathesis} in which more than one occurrence of a metathesized sequence appears in the output. 		\\
+		
+		\begin{block}
+			
+				\begin{tabular}{p{7.5em}p{2em}p{7.5em}p{6.5em}}
+			/lima\textbf{ku}/ & $\rightarrow$ & ˈli.ˌma\textbf{uk}  &  `my hands' \\  %p.203 from Heinz (Reconsidering Linearity)
+			/ke\textbf{ta}la\textbf{ku}/ & $\rightarrow$ & ˈke\textbf{at}.ˌla\textbf{uk} & `my height' \\ % (p. 21) thesis 
+			/bo\textbf{le}bolea/ & $\rightarrow$ &  ˈboel.bo.ˌlea & `crazy'\\ %(p.2)
+			/da\textbf{ro}ʔani\textbf{da}/ & $\rightarrow$ & ˈda\textbf{or}.ʔa.ˌni\textbf{ɛd} &  `to share them'\\  %(p.2)
+			/ra\textbf{ʔe}ra\textbf{ʔe}na\textbf{ʔe}/ & $\rightarrow$ & ˈra\textbf{eʔ}.ˌra\textbf{eʔ}.ˌna\textbf{ˑʔ} &  `incline, slope'\\  %(p.2)
+				\end{tabular}	
+				
+		\end{block}	
+	
+	\end{frame}
+	
+	\begin{frame}{Multiple Metathesis is (beyond) OSL}
+		
+			\begin{block}
+			
+			\begin{center}
+				
+				\begin{tabular}{p{1em}p{9.5em}p{2em}p{6.5em}}
+				&/CV\highlight{CV}/ & $\rightarrow$ & CV\highlight{VC} \\  %p.203 from Heinz (Reconsidering Linearity)
+				&&&\\
+				\only<2-3>{\highlight{$\rightarrow$}}&\only<2-3>{/\underline{CVCV}\highlight{CV}/ } \only<1>{/CVCV\highlight{CV}/} & $\rightarrow$ & CVCV\highlight{VC}   \\ % (p. 21) thesis 
+				&&& \\
+				&/CV\highlight{CV}CV\highlight{CV}/ & $\rightarrow$ &  CV\highlight{VC}CV\highlight{VC} \\ %(p.2)
+				&&& \\
+					\only<3>{\highlight{$\rightarrow$}}&\only<3>{/CV\highlight{CV}\underline{CVCV}\highlight{CV}/}\only<1-2>{/CV\highlight{CV}CVCV\highlight{CV}/} & $\rightarrow$ & CV\highlight{VC}CVCV\highlight{VC}  \\  %(p.2)
+				&&& \\
+				&/CV\highlight{CV}CV\highlight{CV}CV\highlight{CV}/ & $\rightarrow$ & CV\highlight{VC}CV\highlight{VC}CV\highlight{VC}  \\  %(p.2)
+				\end{tabular}	
+		
+			\end{center}
+		
+		\end{block}	
+	
+	\end{frame}
+	
+	\begin{frame}{Multiple Metathesis is (beyond) OSL}
+		
+		\begin{block}{}
+			Multiple Metathesis in Kwara'ae can be described with \textbf{Output Strictly Local (OSL) functions} but is a \textbf{complicated} pattern that requires a \textbf{large locality} domain.
+		\end{block}
+	
+	\end{frame}
+	
+	
+	\begin{frame}{Multiple Metathesis is OSL}
+		\begin{itemize}
+			\item \only<2>{\color{red}{$\rtimes$$\rtimes$$\rtimes$$\rtimes$ in the output and C in the input: C}} \only<1, 3-8>{$\rtimes$$\rtimes$$\rtimes$$\rtimes$ in the output and C in the input: C}
+		
+			\item \only<3>{\color{red}{$\rtimes$$\rtimes$$\rtimes$C in the output and V in the input: V}} \only<1-2, 4-8>{\color{black}{$\rtimes$$\rtimes$$\rtimes$C in the output and V in the input: V}}
+		
+			\item \only<4>{\color{red}{$\rtimes$$\rtimes$CV in the output and x in the input: $\lambda$}} \only<1-3,5-8>{\color{black}{$\rtimes$$\rtimes$CV in the output and x in the input: $\lambda$}}
+		
+			\item \only<5>{\color{red}{$\rtimes$CV$\lambda$ in the output and x in the input: $\lambda$}}\only<1-4,6-8>{\color{black}{$\rtimes$CV$\lambda$ in the output and x in the input: $\lambda$}}
+			
+			\item \only<6>{\color{red}{CV$\lambda$$\lambda$ in the output and x in the input: $\lambda$}}
+			\only<1-5,7-8>{\color{black}{CV$\lambda$$\lambda$ in the output and x in the input: $\lambda$}}
+			
+			\item \only<7>{\color{red}{V$\lambda$$\lambda$$\lambda$ in the output and x in the input : $\lambda$}} \only<1-6,8>{\color{black}{V$\lambda$$\lambda$$\lambda$ in the output and x in the input : $\lambda$}}
+		
+			\item \only<8>{\color{red}{$\lambda$$\lambda$$\lambda$$\lambda$ in the output and $\ltimes$ (or C) in the input: CVVC}}\only<1-7>{\color{black}{$\lambda$$\lambda$$\lambda$$\lambda$ in the output and $\ltimes$ (or C) in the input: CVVC}}
+		\end{itemize}
+	
+		\begin{center}
+			\begin{tabular}{p{1.5em}p{1.5em}p{1.5em}p{1.5em}p{1.5em}p{1.5em}p{1.5em}p{1.5em}p{1.5em}p{1.5em}}
+				\textbf{Input}& & $\rtimes$	   	& C  & V & C & V &\textbf{C}  &\textbf{V}  & $\ltimes$ \\
+				
+				&&				 &\only<2>{$\downarrow$}	&	\only<3>{$\downarrow$}	&\only<4>{$\downarrow$}&\only<5>{$\downarrow$}& \only<6>{$\downarrow$} &	\only<7>{$\downarrow$} & \only<8>{$\downarrow$}  		\\
+				\textbf{Output}&& \only<2-5>{\colorbox{MistyRose}{$\rtimes$}}\only<6-8>{$\rtimes$}	 & \only<2,7-8>{C}\only<3-6>{\colorbox{MistyRose}{C}}	& \only<3,8-8>{V}\only<4-7>{\colorbox{MistyRose}{V}} & \only<4>{$\lambda$}\only<5-8>{\colorbox{MistyRose}{$\lambda$}}	&	\only<5>{$\lambda$}\only<6-8>{\colorbox{MistyRose}{$\lambda$}}	&	\only<6>{$\lambda$}\only<7-8>{\colorbox{MistyRose}{$\lambda$}}	&	\only<7>{$\lambda$}\only<8>{\colorbox{MistyRose}{$\lambda$}}	& \only<8>{CV\textbf{VC}$\ltimes$} \\ 					
+			\end{tabular}
+			
+%			\vspace{5mm}
+%			\only<8>{\highlight{The crucial part: Output CVVC sequence if your previous 4-k output is $\lambda$$\lambda$$\lambda$$\lambda$ and if you see $\ltimes$ in the input.}}
+		\end{center}
+		
+	\end{frame}
+	
+	\begin{frame}{Multiple Metathesis is OSL}	
+		
+		\begin{block}{Problem}	
+			 \textbf{OSL} functions can characterize multiple metathesis patterns in Kwara'ae but are \textbf{complex}, and even simple CV sequences require \textbf{a large locality domain}. 
+		\end{block}
+	
+	\end{frame}
+	
+	
+	\section[Stress]{Stress \& Metathesis Interaction}
+	
+	\begin{frame}{Stress Pattern}
+		
+		\begin{block}{Stress Pattern of Kwara'ae}
+			Metathesized surface forms exhibit systematic stress patterns. 
+		\end{block}
+		
+		\begin{itemize}
+			\item The initial mora takes the primary stress.
+			\item The syllable containing the penultimate mora bears the secondary stress.
+			\item Additional secondary stress falls on an alternating mora leftward from the rightmost stressed mora.
+		\end{itemize}
+			
+	\end{frame}
+	
+	\begin{frame}{Stress Pattern}
+		
+		\begin{alertblock}{}
+			\begin{center}
+			\begin{tabular}{p{8.5em}p{1.5em}p{6.5em}}
+				/CVCV/ & $\rightarrow$ & C\highlight{V}VVC \\
+				&&\\
+				/CVCVCV/ & $\rightarrow$& C\highlight{V}C\highlight{V}VC \\
+				&&\\
+				/CVCVCVCV/ & $\rightarrow$& C\highlight{V}VCC\highlight{V}VC \\
+				&& \\
+				/CVCVCVCVCV/ & $\rightarrow$& C\highlight{V}VCCVC\highlight{V}VC \\
+				&& \\
+				/CVCVCVCVCVCV/ & $\rightarrow$& C\highlight{V}VCC\highlight{V}VCC\highlight{V}VC \\
+			\end{tabular}	
+			\end{center}
+		\end{alertblock}
+
+	\end{frame}
+
+	\begin{frame}{Stress $\rightarrow$ Metathesis}
+		\begin{block}{If we assign the stress to the pre-metathesis input...}
+		\begin{center}
+			\begin{tabular}{p{8.5em}p{1.5em}p{6.5em}}
+				/C\underline{\highlight{V}CV}/ & $\rightarrow$ & C\underline{\highlight{V}VC} \\
+				&&\\
+				/C\highlight{V}C\underline{\highlight{V}CV}/ & $\rightarrow$& C\highlight{V}C\underline{\highlight{V}VC} \\
+				&&\\
+				/C\underline{\highlight{V}CV}C\underline{\highlight{V}CV}/ & $\rightarrow$& C\underline{\highlight{V}VC}C\underline{\highlight{V}VC} \\
+				&& \\
+				/C\underline{\highlight{V}CV}CVC\underline{\highlight{V}CV}/ & $\rightarrow$& C\underline{\highlight{V}VC}CVC\underline{\highlight{V}VC} \\
+				&& \\
+				/C\underline{\highlight{V}CV}C\underline{\highlight{V}CV}C\underline{\highlight{V}CV}/ & $\rightarrow$& C\underline{\highlight{V}VC}C\underline{\highlight{V}VC}C\underline{\highlight{V}VC} \\
+			\end{tabular}
+			
+			\vspace{5mm}
+			
+		\highlight{Kwara'ae's multiple metathesis (over CV sequences) is now 3-ISL.}
+		\end{center}
+		\end{block}
+	\end{frame}
+	
+	
+	\begin{frame}{Multiple Metathesis is ISL}
+		\begin{itemize}
+			\item \only<1>{\textbf{$\rtimes$$\rtimes$C in the in the input: C}} \only<2-7>{$\rtimes$$\rtimes$C in the output and C in the input: C}
+			
+			\item \only<2>{\textbf{$\rtimes$C\highlight{V} in the input: \highlight{V}}} \only<1, 3-7>{$\rtimes$C\highlight{V} in the output and V in the input: \highlight{V}}
+			
+			\item \only<3>{\textbf{C\highlight{V}C in the input: $\lambda$}} \only<1-2,4-7>{C\highlight{V}C in the input: $\lambda$}
+			
+			\item \only<4>{\textbf{\highlight{V}C\highlight{V} in the input: C\highlight{V}}}\only<1-3,5-7>{\highlight{V}C\highlight{V} in the input: C\highlight{V}}
+			
+			\item \only<5>{\textbf{C\highlight{V}C in the input: $\lambda$}}
+			\only<1-4,6-7>{C\highlight{V}C in the input: $\lambda$}
+			
+			\item \only<6>{\textbf{\highlight{V}CV in the input : \highlight{V}VC}} \only<1-5,7-7>{V$\lambda$$\lambda$$\lambda$ in the output and x in the input : $\lambda$}			
+		\end{itemize}
+		
+		\begin{center}
+			\begin{tabular}{p{2.5em}p{1.5em}p{1.5em}p{1.5em}p{1.5em}p{1.5em}p{1.5em}p{1.5em}p{1.5em}}
+				\textbf{Input} & \only<1-2>{\colorbox{MistyRose}{$\rtimes$}} \only<3-7>{$\rtimes$} &	\only<1-3>{\colorbox{MistyRose}{C}}\only<4-7>{C} & \only<2-4>{\colorbox{MistyRose}{\highlight{V}}}\only<1,5-7>{\highlight{V}}& \only<3-5>{\colorbox{MistyRose}{C}}\only<1-2,6-7>{C}  &\only<4-6>{\colorbox{MistyRose}{\highlight{V}}}\only<1-3,7>{\highlight{V}}  & \only<5-6>{\colorbox{MistyRose}{C}}\only<1-4, 7>{C} & \only<6>{\colorbox{MistyRose}{V}}\only<1-5,7>{V}   & $\ltimes$ \\
+		%		& & \only<2-5>{$\rtimes$}\only<1>{\colorbox{MistyRose}{$\rtimes$}}  &  	\only<1-2>{\colorbox{MistyRose}{}} \only<3-5>{h}  & \only<1-3>{\colorbox{MistyRose}{o}} \only<4-5>{o}  & \only<2-5>{\colorbox{MistyRose}{s}} \only<1>{\textbf{s}} & \only<3-5>{\colorbox{MistyRose}{a}} \only<1-2>{\textbf{a}} & \only<4-5>{\colorbox{MistyRose}{$\ltimes$}} \only<1-3>{\textbf{$\ltimes$}} \\
+				& & \only<1>{$\downarrow$}&	\only<2>{$\downarrow$}	 & \only<3>{$\downarrow$}	&	\only<4>{$\downarrow$}	& \only<5>{$\downarrow$} & \only<6>{$\downarrow$} &		\\
+				\textbf{Output}& \only<1-7>{$\rtimes$}	 &	\only<1-7>{C}	&	\only<2-7>{\highlight{V}}	& \only<3-7>{$\lambda$} &	\only<4-7>{C\highlight{V}} & \only<5-7>{$\lambda$} & \only<6-7>{VC} & \only<7>{$\ltimes$} \\ 		
+			\end{tabular}
+		\end{center}
+		
+		\begin{center}
+			\vspace{7mm}
+			\only<7>{\textbf{It is 3-ISL because the target sequence is `\highlight{V}CV'.}}  
+		\end{center}
+		
+	\end{frame}
+
+	\begin{frame}{Stress Assignment is TSL}
+		\begin{block}{Kwara'ae's Stress Pattern}
+			\begin{itemize}
+				\item Stress assignment is simple as well.
+				\item It can be described with \textbf{Tier-Strictly Local (TSL)} Grammar.
+			\end{itemize}
+		\end{block}	
+	\end{frame}
+
+	\begin{frame}{Stress Assignment is TSL}
+		\begin{itemize}
+		\item Project stressed vowel \textbf{(S)} and unstressed vowel \textbf{μ}.
+		\item Ban a sequence containing \\ \textbf{$^*$SSS, $^*$$\rtimes$μ, $^*$μμ$\ltimes$, $^*$μμμ, $^*$S$\ltimes$ $^*$SSμμ, $^*$SSμS}, or \textbf{$^*$μSS} \\ on the tier. %\footnote{Exception: CVCVVCV $\rightarrow$ C\underline{V}C\underline{V}VCV. How to deal with this pattern is an open question if the UR is indeed /CVCVVCV/.}
+		\end{itemize}
+		\begin{figure}[!hb]
+			\begin{tikzpicture}
+			\node(0) at (0,0) {};
+			\node (1) at (0.5,0) {b};
+			\node (2) at (1,0) {\textbf{o}};
+			\node (3) at (1.5,0) {l};
+			\node (4) at (2.0,0) {e};
+			\node (5) at (2.5,0) {b};
+			\node (6) at (3,0) {o};
+			\node (7) at (3.5,0) {l};
+			\node (8) at (4,0) {\textbf{e}};
+			\node(9) at (4.5,0) {a};
+			
+			\node(00) at (0, 1) {$\rtimes$};
+			\node (02) at (1,1) {\textbf{S}};
+			\node (04) at (2,1) {μ};
+			\node(06)  at (3, 1) {μ};
+			\node(08)  at (4, 1) {\textbf{S}};
+			\node(09) at (4.5, 1) {μ};
+			\node(10) at (5, 1) {$\ltimes$};
+			
+			\foreach \Source/\Target in {%
+				2.north/02.south,
+				4.north/04.south,
+				6.north/06.south,
+				8.north/08.south,
+				9.north/09.south%
+			}
+			\draw (\Source) to (\Target);
+			
+			\draw[dotted] (-0.25,0.5) to (7,0.5);
+			\node at (6,0.65) {{\tiny stress}};
+			
+			\node at (0.3,1.5) {$^{ok}$b\textbf{o}lebol\textbf{e}a};
+			\end{tikzpicture}	
+	
+		\end{figure}
+	
+	\end{frame}
+		
+	\begin{frame}{Stress Assignment is TSL}
+		Banned sequences on the tier: \\ \textbf{$^*$SSS, \highlight{$^*$$\rtimes$μ}, $^*$μμ$\ltimes$, $^*$μμμ, $^*$S$\ltimes$ $^*$SSμμ, $^*$SSμS}, or \textbf{$^*$μSS} 
+	\begin{figure}[!hb]
+		\begin{tikzpicture}
+		\node(0) at (0,0) {};
+		\node (1) at (0.5,0) {b};
+		\node (2) at (1,0) {o};
+		\node (3) at (1.5,0) {l};
+		\node (4) at (2.0,0) {\textbf{e}};
+		\node (5) at (2.5,0) {b};
+		\node (6) at (3,0) {o};
+		\node (7) at (3.5,0) {l};
+		\node (8) at (4,0) {\textbf{e}};
+		\node(9) at (4.5,0) {a};
+		
+		\node(00) at (0, 1) {\highlight{$\rtimes$}};
+		\node (02) at (1,1) {\highlight{μ}};
+		\node (04) at (2,1) {\textbf{S}};
+		\node(06)  at (3, 1) {μ};
+		\node(08)  at (4, 1) {\textbf{S}};
+		\node(09)  at (4.5, 1) {μ};
+		\node(10) at (5, 1) {$\ltimes$};
+		
+		\foreach \Source/\Target in {%
+			2.north/02.south,
+			4.north/04.south,
+			6.north/06.south,
+			8.north/08.south,
+			9.north/09.south%
+		}
+		\draw (\Source) to (\Target);
+		
+		\draw[dotted] (-0.25,0.5) to (7,0.5);
+		\node at (6,0.65) {{\tiny stress}};
+		
+		\node at (0.3,1.5) {*bol\textbf{e}b\textbf{o}lea};
+		\end{tikzpicture}
+		
+	\end{figure}
+		
+	\end{frame}
+
+\section[Conclusion]{Discussion \& Conclusion}
+
+	\begin{frame}{Discussion \& Conclusion}
+		
+		\begin{block}{What did we see?}
+			\begin{itemize}
+				\item Multiple metathesis is much more complex than single metathesis.
+				\item But with the right conditioning factors (stress), it becomes simple again.				
+				\item Kawa'ae's multiple metathesis can be described with \textbf{3-ISL} functions. %from its related metathesis operation. 
+				\item Stress-assignment in Kwara'ae can be described with \textbf{TSL}. 
+			\end{itemize}
+		\end{block}	
+ 
+	\end{frame}
+		
+		\begin{frame}{Discussion \& Conclusion}
+		
+		\begin{exampleblock}{}
+			\begin{center}
+				\color{red}{Factorization of the grammar into different sub-processes makes it possible to produce simpler computational processes of phonological patterns.}
+			\end{center}
+		\end{exampleblock}
+		
+		\begin{alertblock}{Conjecture}
+			\begin{itemize}
+				\item If phonological mappings are restricted to ISL and OSL, whenever you have multiple metathesis in a language, then there must be some conditioning factors. 
+				\item This way of thinking can be extended to other seemingly complex phonological mappings. 
+			\end{itemize}
+		\end{alertblock}
+		
+	\end{frame}
+
+	\begin{frame}{References} 
+\noindent%
+%\textbf{Chandlee}, J. 2012.
+%\newblock Evidence for classifying metathesis patterns as subsequential.
+%\newblock {\em The Proceedings of the 29th WCCFL}, 303--309.
+%$\bibseparator$ 
+\newline
+\textbf{Chandlee}, J. 2014. \textit{Strictly local phonological processes.} PhD Thesis, University of Delaware 
+\newline
+\textbf{Chandlee}, J. 2015. \textit{Explaining Phonological Typology: Phonetic and Computational	Factors.}  Presentation at Reed College, Portland, OR, April 17.
+\newline
+\textbf{Heinz}, J. 2004. \textit{CV Metathesis in Kwara'ae.} MA Thesis, UCLA 
+\newline
+\textbf{Heinz}, J., \textbf{Chetan} Rawal, and \textbf{Herbert} G. Tanner. 2011. Tier-based strictly local constraints in phonology. In \textit{Proceedings of the 49th Annual Meeting of ACL}, 58--64.  
+\newline
+\textbf{Heinz}, J. 2015. The computational nature of phonological generalization. \textit{Ms., University of Delaware}.
+
+	\end{frame}
+
+    \appendix
+	
+	\begin{frame}{Problematic cases}
+		\begin{alertblock}{Items with non-CV syllable(s)}
+			\begin{itemize}
+				\item Some metathesis patterns necessarily increases the locality to 4-ISL
+				 \begin{itemize}
+				 	\item  /C\highlight{V}CVVC\highlight{V}CV/ $\rightarrow$ `C\highlight{V}CVVC\highlight{V}VC' 
+				 	\item /C\highlight{V}C\highlight{V}VCV $\rightarrow$ `C\highlight{V}C\highlight{V}VVC'
+				 \end{itemize} 
+				\item It is possible that further factorization of the process or enriching the representation could make it possible to lower the locality domain involved in metathesis operation (e.g. Incorporating foot boundaries into the representation) 
+			\end{itemize}
+		\end{alertblock}
+	\end{frame}
+	
+\end{document}

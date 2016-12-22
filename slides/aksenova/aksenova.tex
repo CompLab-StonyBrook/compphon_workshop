@@ -1,0 +1,1411 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+
+\usepackage{tikz}
+\usepackage{multicol}
+\usetikzlibrary{decorations.pathmorphing}
+\usepackage{soul}
+\usepackage{tipa}
+\usepackage{tcolorbox}
+\usepackage{amssymb}
+\usepackage{pifont}
+
+\mode<presentation> {
+\usetheme{Frankfurt}
+\usecolortheme{dolphin}
+\setbeamertemplate{navigation symbols}{} % remove the navigation symbols
+%\setbeamertemplate{footline}[frame number]
+% empty footline except page number in bottom right
+\setbeamerfont{footline}{size=\scriptsize}
+\newcommand{\numberedfootline}{%
+    \setbeamertemplate{footline}{\color{blue!50}\hfill\insertframenumber\hspace{0.5em}\smallskip}
+}
+\numberedfootline
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+\newenvironment<>{varblock}[2][.9\textwidth]{%
+  \setlength{\textwidth}{#1}
+  \begin{actionenv}#3%
+    \def\insertblocktitle{#2}%
+    \par%
+    \usebeamertemplate{block begin}}
+  {\par%
+    \usebeamertemplate{block end}%
+  \end{actionenv}}
+
+
+
+% ====================================================
+%	TITLE PAGE
+% ====================================================
+
+\title[%
+	To Achieve Harmony We Only Need One Tier]{%
+	To Achieve Harmony We Only Need One Tier} 
+\author{Al\"ena Aks\"enova}
+\institute[Stony Brook University]
+{ \vspace{-1em}
+Stony Brook University \\
+\vspace{6em}
+}
+\date
+{Computational Phonology Workshop \\ \medskip
+{\small Stony Brook University \\
+December 12, 2016} }
+
+\begin{document}
+\setbeamertemplate{enumerate items}[default] % uncomment to get ugly enumerate
+
+% commands
+\newcommand{\highlight}[1]{\textbf{\textcolor{blue}{#1}}}
+\newcommand{\imp}[1]{\textbf{#1}}
+\newcommand{\citecolor}[1]{{\color{gray!85}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\linecell}[2][l]{% next line in a cell
+\begin{tabular}[#1]{@{}l@{}}#2\end{tabular}}
+%\newcommand{\comment}[1]{}
+\newcommand\unnumbered{\setbeamertemplate{footline}{}\addtocounter{framenumber}{-1}}
+
+%------------------------------------------------
+
+{\unnumbered
+\begin{frame}
+\titlepage
+\end{frame}
+}
+
+
+
+
+
+% ====================================================
+%	MY GOAL
+% ====================================================
+
+\begin{frame}
+\frametitle{My goal}
+\begin{itemize}
+	\item Several TSL grammars are needed to capture several long-distance phonological dependencies.
+	\medskip
+	\item For a single vowel harmony, only one tier is enough.
+	\item There are \textcolor{blue!60!black}{double vowel harmonies}, where primary and secondary features are being spread.
+	\item Do we need more than one tier to model such harmonies?
+\end{itemize}
+\pause
+\bigskip
+\begin{center}
+\textcolor{blue!75!black!50!white}{\textbf{\Large One tier is always enough!}}
+\end{center}
+\end{frame}
+
+%------------------------------------------------
+
+{\unnumbered
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents
+\end{frame}
+}
+
+
+
+
+
+% ====================================================
+%	TSL PHONOLOGY
+% ====================================================
+\section[TSL phonology]{TSL phonology}
+\subsection*{TSL}
+
+%\begin{frame}
+%\frametitle{SL phonology}
+%{\large \textbf{Strictly Local grammars} capture local dependencies.}
+%\bigskip
+%
+%\pause
+%
+%\begin{example}[Intervocalic \emph{`s'} voicing in German]
+%		\begin{itemize}
+%			\item \textcolor{blue!60!black}{Single \emph{`s'} becomes voiced in-between two vowels:} \\
+%				\begin{tabular}{lcll}
+%					F\textcolor{green!50!black}{ase}r & $\rightarrow$ & fa[z]er & `fiber'  \\
+%					re\textcolor{green!50!black}{ise}n & $\rightarrow$ & rei[z]en & `to.travel'
+%				\end{tabular}
+%			\pause
+%			\item \textcolor{blue!60!black}{Other consonants are unaffected:} \\
+%				\begin{tabular}{lcll}
+%					Wasser & $\rightarrow$ & wa[ss]er & `water'  \\
+%					reiste & $\rightarrow$ & rei[s]te & `traveled'
+%				\end{tabular}
+%			\pause\medskip
+%			\item $G_{SL}$ = \{*VsV\}
+%			\pause\medskip
+%			\item \textcolor{red!75!black}{*}re\textcolor{red!75!black}{i[s]e}n \qquad
+%				$^{\textcolor{green!50!black}{ok}}$rei[z]en \qquad
+%				$^{\textcolor{green!50!black}{ok}}$rei[st]e
+%		\end{itemize}
+%	\end{example}
+%\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{TSL phonology}
+{\large \textbf{Tier-based Strictly Local grammars} capture non-local dependencies in a local fashion by projecting elements of a certain type on a \emph{tier}.}
+\bigskip
+%
+\pause
+%
+%\begin{example}[\emph{-\=alis}/\emph{-\=aris} alternation in Latin]
+%\begin{itemize}
+%	\item \textcolor{blue!60!black}{\emph{-\=alis} is chosen when the previous liquid is \emph{`r'}:} \\
+%		\begin{tabular}{llcll}
+%			\textcolor{green!50!black}{l}\={\textsci}b\textcolor{green!50!black}{r}a & `pound'
+%			& $\rightarrow$ &
+%			\textcolor{green!50!black}{l}\={\textsci}b\textcolor{green!50!black}{r}\={a}\textcolor{green!50!black}{l}is & `weighing one pound'
+%		\end{tabular}
+		%
+%	\item \textcolor{blue!60!black}{\emph{-\=aris} is chosen when the previous liquid is \emph{`l'}:} \\
+%		\begin{tabular}{llcll}
+%			m\={\textsci}\textcolor{green!50!black}{l}es & `soldier'
+%			& $\rightarrow$ &
+%			m\={\textsci}\textcolor{green!50!black}{l}it\=a\textcolor{green!50!black}{r}is & `military'
+%		\end{tabular}
+	%
+%	\pause
+	%
+%	\item Not SL: there can be unbounded amount of material in-between the two liquids.
+	%
+%	\pause
+	%
+%	\item $T$ = \{l, r\}, $G_{TSL}$ = \{*ll, *rr\}
+%\end{itemize}
+%\end{example}
+%\end{frame}
+
+
+%------------------------------------------------
+
+%\begin{frame}
+%\frametitle{TSL phonology [cont.]}
+%\begin{example}[\emph{-\=alis}/\emph{-\=aris} alternation in Latin]
+%\begin{itemize}
+%	\item $T$ = \{l, r\}, $G_{TSL}$ = \{*ll, *rr\}
+%\end{itemize}
+%
+%\pause
+%
+%\begin{center}
+%\begin{tikzpicture}
+%\node (1) at (0.5,-0.01) {l};
+%\node (2) at (1,-0.02) {\={\textsci}};
+%\node (3) at (1.5,0) {b};
+%\node (4) at (2,-0.05) {r};
+%\node (5) at (2.5,-0.02) {\={a}};
+%\node (6) at (3,-0.01) {l};
+%\node (7) at (3.5,-0.01) {i};
+%\node (8) at (4,-0.05) {s};
+%
+%\node (01) at (0.5,1) {l};
+%\node (04) at (2,0.95) {r};
+%\node (06) at (3,1) {l};
+%
+%\foreach \Source/\Target in {%
+%        1.north/01.south,
+%        4.north/04.south,
+%        6.north/06.south%
+%    }
+%\draw (\Source) to (\Target);
+%
+%\draw[dotted] (0.25,0.5) to (5,0.5);
+%\node at (4.5,0.65) {{\tiny liquids}};
+%
+%\node at (0.3,1.5) {$^{\textcolor{green!50!black}{ok}}$l\={\textsci}br\={a}lis};
+%\end{tikzpicture}
+%\end{center}
+%
+%\pause
+%
+%\begin{center}
+%\begin{tikzpicture}
+%\node (1) at (0.5,-0.01) {l};
+%\node (2) at (1,-0.02) {\={\textsci}};
+%\node (3) at (1.5,0) {b};
+%\node (4) at (2,-0.05) {r};
+%\node (5) at (2.5,-0.02) {\={a}};
+%\node (6) at (3,-0.05) {r};
+%\node (7) at (3.5,-0.01) {i};
+%\node (8) at (4,-0.05) {s};
+%
+%\node (01) at (0.5,1) {l};
+%\node (04) at (2,0.95) {\alert{r}};
+%\node (06) at (3,0.95) {\alert{r}};
+%
+%\foreach \Source/\Target in {%
+%        1.north/01.south,
+%        4.north/04.south,
+%        6.north/06.south%
+%    }
+%\draw (\Source) to (\Target);
+%
+%\draw[dotted] (0.25,0.5) to (5,0.5);
+%\node at (4.5,0.65) {{\tiny liquids}};
+%
+%\node at (0.3,1.5) {\alert{*}l\={\textsci}br\={a}ris};
+%\end{tikzpicture}
+%\end{center}
+%\end{example}
+%\end{frame}
+
+
+
+%\section[Single harmony]{Single harmony}
+%\subsection*{Single}
+
+%\begin{frame}
+%\frametitle{Single harmony}
+\begin{itemize}
+	\item \textcolor{blue!60!black}{\emph{Single harmony} is a harmony where only one feature is being transmitted among certain set of vowels.} \\ \smallskip
+		{\small 
+		\textsc{Finnish, Hungarian}: front/back harmony \\
+		\textsc{Lokaa}: ATR harmony among non-high vowels \\
+		\textsc{Kingala}: height harmony}
+	%
+	\pause\medskip
+	%
+	\item Harmonizing elements and blockers are projected on a tier.
+	\item Transparent elements are ignored.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Harmony in Lokaa}
+\begin{itemize}
+	\item Harmonizing elements and blockers are projected on a tier.
+	\item Transparent elements are ignored.
+\end{itemize}
+%
+\pause
+%
+\begin{example}[Vowel harmony in \textsc{Lokaa}]
+\begin{itemize}
+	\item \textcolor{blue!60!black}{Non-high vowels harmonize in ATR.} \textcolor{gray}{(Akinlabi 2009)} \\
+		\begin{tabular}{rllll}
+			tense: & \hspace{1em} \textcolor{green!50!black}{\`e}s\`is\textcolor{green!50!black}{\`o}n & `smoke' &
+			 l\textcolor{green!50!black}{\`e}j\`im\textcolor{green!50!black}{\`\textschwa} & `matriclan' \\
+			lax: &\hspace{1em} \textcolor{green!50!black}{\`\textepsilon}s\'is\textcolor{green!50!black}{\`\textopeno}n & `housefly' \hspace{1em} & \textcolor{green!50!black}{\'\textopeno}t\'u:m\textcolor{green!50!black}{\'a} & `need'
+		\end{tabular}
+	%
+	\medskip
+	\pause
+	%
+	\item $T$ = \{e, o, \textschwa, \textepsilon, \textopeno, a\}, $H_{ATR}$ = \{*e\textepsilon, *e\textopeno, *ea, *o\textopeno, *\textepsilon o, ...\}
+\end{itemize}
+%
+\pause
+%
+\vspace{-0.8em}
+\begin{figure}
+\begin{tikzpicture}
+\node (1) at (0.5,0.05) {\`\textepsilon};
+\node (2) at (1,0) {s};
+\node (3) at (1.5,0.03) {\`i};
+\node (4) at (2,0) {s};
+\node (5) at (2.5,0.05) {\`\textopeno};
+\node (6) at (3,0) {n};
+%
+\node (01) at (0.5,1) {\textepsilon};
+\node (05) at (2.5,1) {\textopeno};
+%
+\foreach \Source/\Target in {%
+	1.north/01.south,
+	5.north/05.south%
+    }
+\draw (\Source) to (\Target);
+%
+\draw[dotted] (0.25,0.5) to (4.2,0.5);
+\node at (3.5,0.65) {{\tiny [-hi] vowels}};
+%
+\node at (0.8,1.5) {$^{\textcolor{green!50!black}{ok}}$\`\textepsilon s\`is\`\textopeno n};
+\end{tikzpicture}
+%
+\hspace{1.3em}
+\begin{tikzpicture}
+\node (1) at (0.5,0.05) {\`\textepsilon};
+\node (2) at (1,0) {s};
+\node (3) at (1.5,0.03) {\`i};
+\node (4) at (2,0) {s};
+\node (5) at (2.5,0.05) {\`o};
+\node (6) at (3,0) {n};
+%
+\node (01) at (0.5,1) {\alert{\textepsilon}};
+\node (05) at (2.5,1) {\alert{o}};
+%
+\foreach \Source/\Target in {%
+	1.north/01.south,
+	5.north/05.south%
+    }
+\draw (\Source) to (\Target);
+%
+\draw[dotted] (0.25,0.5) to (4.2,0.5);
+\node at (3.5,0.65) {{\tiny [-hi] vowels}};
+%
+\node at (0.8,1.5) {\textcolor{red}{*}\`\textepsilon s\`is\`on};
+\end{tikzpicture}
+\end{figure}
+\end{example}
+\end{frame}
+
+%------------------------------------------------
+
+%\begin{frame}
+%\frametitle{Single harmony: Assamese}
+%\begin{itemize}
+%	\item Harmonizing elements and blockers are projected on a tier
+%	\item Transparent elements are ignored
+%\end{itemize}
+%
+%\pause
+%
+%\begin{example}[Vowel harmony in \textsc{Assamese}]
+%\begin{itemize}
+%	\item \textcolor{blue!60!black}{High vowels spread [+ATR] regressively, [\textscripta] is a blocker} \textcolor{gray}{(Mahanta 2008)} \\
+%	\begin{tabular}{llcll}
+%	z\textcolor{green!50!black}{\textupsilon}r & `strength' & $\rightarrow$ & z\textcolor{green!50!black}{u}r-\textcolor{green!50!black}{i} & `strong' \\
+%	x\textcolor{green!50!black}{\textupsilon}n & `gold' & $\rightarrow$ & x\textcolor{green!50!black}{\textupsilon}n-\textcolor{red!60!black}{\textscripta}l\textcolor{green!50!black}{i} & `golden'
+%	\end{tabular}
+	%
+%	\medskip
+%	\pause
+	%
+%	\item $T$ = \{\textupsilon, u, \textscripta, i, ...\}, $H_{ATR}$ = \{*\textupsilon i, *\textupsilon u,  *u\textscripta, *i\textscripta...\}
+%\end{itemize}
+%
+%\pause
+%
+%\vspace{-0.8em}
+%
+%\begin{figure}
+%
+%\begin{tikzpicture}
+%\node (1) at (0.5,0) {x};
+%\node (2) at (1,0) {\textupsilon};
+%\node (3) at (1.5,0) {n};
+%\node (4) at (2,0) {\textscripta};
+%\node (5) at (2.5,0.03) {l};
+%\node (6) at (3,0.03) {i};
+%
+%\node (02) at (1,1) {\textupsilon};
+%\node (04) at (2,1) {\textscripta};
+%\node (06) at (3,1.03) {i};
+%
+%\foreach \Source/\Target in {%
+%	2.north/02.south,
+%	4.north/04.south,
+%	6.north/06.south%
+%    }
+%\draw (\Source) to (\Target);
+%
+%\draw[dotted] (0.25,0.5) to (4.2,0.5);
+%\node at (3.65,0.65) {{\tiny harmony}};
+%
+%\node at (0.8,1.5) {$^{\textcolor{green!50!black}{ok}}$x\textupsilon n\textscripta li};
+%\end{tikzpicture}
+%
+%\hspace{1em}
+%
+%\begin{tikzpicture}
+%\node (1) at (0.5,0) {x};
+%\node (2) at (1,0) {u};
+%\node (3) at (1.5,0) {n};
+%\node (4) at (2,0) {\textscripta};
+%\node (5) at (2.5,0.03) {l};
+%\node (6) at (3,0.03) {i};
+%
+%\node (02) at (1,1) {\alert{u}};
+%\node (04) at (2,1) {\alert{\textscripta}};
+%\node (06) at (3,1.03) {i};
+%
+%\foreach \Source/\Target in {%
+%	2.north/02.south,
+%	4.north/04.south,
+%	6.north/06.south%
+%    }
+%\draw (\Source) to (\Target);
+%
+%\draw[dotted] (0.25,0.5) to (4.2,0.5);
+%\node at (3.65,0.65) {{\tiny harmony}};
+%
+%\node at (0.8,1.5) {\textcolor{red}{*}xun\textscripta li};
+%\end{tikzpicture}
+%
+%\end{figure}
+%\end{example}
+%\end{frame}
+
+
+% ====================================================
+%	SECONDARY HARMONY
+% ====================================================
+\section[Double harmony]{Secondary harmony}
+\subsection*{Double}
+
+\begin{frame}
+\frametitle{Secondary harmony}
+\begin{itemize}
+	\item In numerous languages we observe \textcolor{blue!60!black}{\emph{double harmony,} 
+		where two features are being transmitted}. \\ \smallskip
+		{\small 
+		\textsc{Turkish, Yakut, Kirghiz}: front/back and rounding \\
+		\textsc{Buryat, Mongolian}: ATR and rounding \\
+		\textsc{Coeur d'Alene}: ATR and height }
+	\pause \bigskip
+	\item We expect to need a separate tier for secondary harmonies.
+	\item Is it true?
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Secondary harmony: Buryat}
+\begin{itemize} { \small
+	\item \textcolor{blue!60!black}{Primary:} all vowels harmonize in ATR.
+	\item \textcolor{blue!60!black}{Secondary:} non-high vowels agree in rounding, high ones block it. }
+%	\item The harmony is root-controlled.
+\end{itemize}
+%
+\pause
+%
+\begin{example}[Double vowel harmony in \textsc{Buryat}]
+\begin{itemize}
+	\item \textbf{Roots:} \,\,\,\textopeno r `enter' \qquad to:r `wander'
+	\item \textbf{Affixes:} -\textupsilon:l, -u:l  \qquad\qquad\,\,\,\,\,\,\,\, `\textsc{caus}' \quad (V:$^{+hi}$l) \\
+		\qquad\,\,\,\,\,\,\,\,\, -a:d, -\textopeno:d, -e:d, -o:d \,\,\, `\textsc{perf}' \quad (V:$^{-hi}$d) \\
+		\pause\medskip
+		\begin{tabular}{lll}
+\multicolumn{3}{l}{\footnotesize \textcolor{red!75!yellow!80!white}{ \# lax word; two adjacent non-high vowels harmonize \vspace{-0.2em}}} \\
+\textcolor{green!50!black}{\textopeno}r-\textcolor{green!50!black}{\textopeno:}d & `enter-\textsc{perf}' & *\textopeno r-a:d \pause \\
+\multicolumn{3}{l}{\footnotesize \textcolor{red!75!yellow!80!white}{ \# lax word; high vowel blocks labial harmony \vspace{-0.2em}}} \\
+\textcolor{green!50!black}{\textopeno}r-\textcolor{green!50!black}{\textupsilon:}l-\textcolor{green!50!black}{a:}d & `enter-\textsc{caus-perf}' & *\textopeno r-\textupsilon:l-\textopeno:d \pause \\
+\multicolumn{3}{l}{\footnotesize \textcolor{red!75!yellow!80!white}{ \# tensed word; two adjacent non-high vowels harmonize \vspace{-0.2em}}} \\
+t\textcolor{green!50!black}{o:}r-\textcolor{green!50!black}{o:}d & `wander-\textsc{perf}' & *to:r-e:d \pause \\
+\multicolumn{3}{l}{\footnotesize \textcolor{red!75!yellow!80!white}{ \# tensed word; high vowel blocks labial harmony \vspace{-0.2em}}} \\
+t\textcolor{green!50!black}{o:}r-\textcolor{green!50!black}{u:}l-\textcolor{green!50!black}{e:}d & `wander-\textsc{caus-perf}' & *to:r-u:l-o:d
+\end{tabular}
+\end{itemize}
+\vspace{-0.7em}
+\end{example}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Secondary harmony: Buryat [cont.]}
+\begin{itemize}
+	\item Tier $T$ = \{a, e, \textopeno, o, \textupsilon, u\}
+	\pause\bigskip
+	%
+	\item \textcolor{blue!60!black}{Primary:} all vowels harmonize in ATR.
+	\item No *V$_{\alpha ATR}$V$_{-\alpha ATR}$ bigrams \\
+		{\small $H_{ATR}$\,\,= \{*\textopeno o, *o\textopeno, *\textupsilon u, *u\textupsilon, *ae, *ea, 
+			*\textupsilon o, *o\textupsilon, *\textupsilon e, *e\textupsilon, *\textopeno u, \\ \qquad\qquad
+			\quad *u\textopeno, *\textopeno e, *e\textopeno, *oa, *ao, *au, *ua\} }
+	\pause\bigskip
+	%
+	\item \textcolor{blue!60!black}{Secondary:} non-high vowels harmonize in rounding, high vowels are blockers: rounded non-high vowels can either occur in the first syllable, or be licensed by harmony.
+	\item No *V$^{-hi}_{\alpha round}$V$^{-hi}_{-\alpha round}$ and *V$^{+hi}$V$^{-hi}_{+round}$ bigrams \\
+		{\small $H_{round}$\,\,= \{*\textopeno a, *a\textopeno, *eo, *oe, *\textupsilon\textopeno, *uo\} }
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Secondary harmony: Buryat [cont.]}
+\begin{itemize}
+	\item $T$ = \{a, e, \textopeno, o, \textupsilon, u\}
+	\item {\small $H_{ATR}$\,\,= \{*\textopeno o, *o\textopeno, *\textupsilon u, *u\textupsilon, *ae, *ea, 
+			*\textupsilon o, *o\textupsilon, *\textupsilon e, *e\textupsilon, *\textopeno u, \\ \qquad\qquad
+			\quad *u\textopeno, *\textopeno e, *e\textopeno, *oa, *ao, *au, *ua\} }
+	\item {\small $H_{round}$\,\,= \{*\textopeno a, *a\textopeno, *eo, *oe, *\textupsilon\textopeno, *uo\} }
+\end{itemize}
+\pause
+\begin{example}[Double vowel harmony in \textsc{Buryat}]
+\begin{tabular}{lll}
+\hspace{2em} t\textcolor{green!50!black}{o:}r-\textcolor{green!50!black}{o:}d & `wander-\textsc{perf}' & *to:r-e:d
+\end{tabular}
+\pause
+\begin{figure}
+\begin{tikzpicture}
+\node (0) at (0,0.027) {t};
+\node (1) at (0.5,0) {o:};
+\node (2) at (1,0) {r};
+\node (3) at (1.5,0) {o:};
+\node (4) at (2,0.04) {d};
+%
+\node (01) at (0.5,1) {o:};
+\node (03) at (1.5,1) {o:};
+%
+\foreach \Source/\Target in {%
+        1.north/01.south,
+	3.north/03.south%
+    }
+\draw (\Source) to (\Target);
+%
+\draw[dotted] (-0.25,0.5) to (3,0.5);
+\node at (2.5,0.65) {{\tiny harmony}};
+%
+\node at (0.3,1.5) {$^{\textcolor{green!50!black}{ok}}$to:ro:d};
+\end{tikzpicture}
+%
+\hspace{1.5em}
+%
+\begin{tikzpicture}
+\node (0) at (0,0.027) {t};
+\node (1) at (0.5,0) {o:};
+\node (2) at (1,0) {r};
+\node (3) at (1.5,0) {e:};
+\node (4) at (2,0.04) {d};
+%
+\node (01) at (0.5,1) {\alert{o:}};
+\node (03) at (1.5,1) {\alert{e:}};
+%
+\foreach \Source/\Target in {%
+        1.north/01.south,
+	3.north/03.south%
+    }
+\draw (\Source) to (\Target);
+%
+\draw[dotted] (-0.25,0.5) to (3,0.5);
+\node at (2.5,0.65) {{\tiny harmony}};
+%
+\node at (0.3,1.5) {\textcolor{red}{*}to:re:d};
+\end{tikzpicture}
+\end{figure}
+\end{example}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Secondary harmony: Buryat [cont.]}
+\begin{itemize}
+	\item $T$ = \{a, e, \textopeno, o, \textupsilon, u\}
+	\item {\small $H_{ATR}$\,\,= \{*\textopeno o, *o\textopeno, *\textupsilon u, *u\textupsilon, *ae, *ea, 
+			*\textupsilon o, *o\textupsilon, *\textupsilon e, *e\textupsilon, *\textopeno u, \\ \qquad\qquad
+			\quad *u\textopeno, *\textopeno e, *e\textopeno, *oa, *ao, *au, *ua\} }
+	\item {\small $H_{round}$\,\,= \{*\textopeno a, *a\textopeno, *eo, *oe, *\textupsilon\textopeno, *uo\} }
+\end{itemize}
+%
+\begin{example}[Double vowel harmony in \textsc{Buryat}]
+\begin{tabular}{lll}
+\hspace{2em} t\textcolor{green!50!black}{o:}r-\textcolor{green!50!black}{u:}l-\textcolor{green!50!black}{e:}d & `wander-\textsc{caus-perf}' & *to:r-u:l-o:d
+\end{tabular}
+\pause
+\begin{figure}
+\begin{tikzpicture}
+\node (0) at (0,0.027) {t};
+\node (1) at (0.5,0) {o:};
+\node (2) at (1,0) {r};
+\node (3) at (1.5,0) {u:};
+\node (4) at (2,0.04) {l};
+\node (5) at (2.5,0) {e:};
+\node (6) at (3,0.04) {d};
+%
+\node (01) at (0.5,1) {o:};
+\node (03) at (1.5,1) {u:};
+\node (05) at (2.5,1) {e:};
+%
+\foreach \Source/\Target in {%
+        1.north/01.south,
+        3.north/03.south,
+	5.north/05.south%
+    }
+\draw (\Source) to (\Target);
+%
+\draw[dotted] (-0.25,0.5) to (4,0.5);
+\node at (3.5,0.65) {{\tiny harmony}};
+%
+\node at (0.4,1.5) {$^{\textcolor{green!50!black}{ok}}$to:ru:le:d};
+\end{tikzpicture}
+%
+\hspace{1em}
+%
+\begin{tikzpicture}
+\node (0) at (0,0.027) {t};
+\node (1) at (0.5,0) {o:};
+\node (2) at (1,0) {r};
+\node (3) at (1.5,0) {u:};
+\node (4) at (2,0.04) {l};
+\node (5) at (2.5,0) {o:};
+\node (6) at (3,0.04) {d};
+%
+\node (01) at (0.5,1) {o:};
+\node (03) at (1.5,1) {\alert{u:}};
+\node (05) at (2.5,1) {\alert{o:}};
+%
+\foreach \Source/\Target in {%
+        1.north/01.south,
+        3.north/03.south,
+	5.north/05.south%
+    }
+\draw (\Source) to (\Target);
+%
+\draw[dotted] (-0.25,0.5) to (4,0.5);
+\node at (3.5,0.65) {{\tiny harmony}};
+%\draw [dashed] (1.2,0.77) -- (2.7,0.77) -- (2.7,1.2) -- (1.2,1.2) -- (1.2,0.77);
+%
+\node at (0.4,1.5) {\textcolor{red}{*}to:ru:lo:d};
+\end{tikzpicture}
+\end{figure}
+\end{example}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Secondary harmony: Buryat [cont.]}
+\begin{itemize}
+	\item \textcolor{blue!60!black}{Primary:} all vowels harmonize in ATR.
+	\item \textcolor{blue!60!black}{Secondary:} non-high vowels harmonize in rounding, high vowels block this spreading.
+	%
+	\pause\bigskip
+	%
+	\item Only one tier is needed:
+		\begin{itemize}
+			\item Transparent elements are same for both harmonies.
+			\item Secondary harmony is \emph{bounded on the vowel tier}, 
+				high vowels block the spreading of [round] feature.
+		\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+
+
+% ====================================================
+%	UNATTESTED PATTERN
+% ====================================================
+\section[Unattested patterns]{Unattested patterns}
+\subsection*{Unattested patterns}
+
+\begin{frame}
+\frametitle{Unattested patterns}
+It is possible to imagine a language where a separate tier for the secondary harmony will be needed:
+\bigskip
+\pause
+\begin{itemize}
+	\item Secondary harmony is also unbounded and affects only subset of the vowels that take part in the primary spreading.
+	\item Secondary harmony involves a blocker that was not presented on the tier of the primary one.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Unattested patterns: Pseudo-Buryat}
+\begin{itemize}
+	\item Secondary harmony is also unbounded and affects only subset of the vowels that take part in the primary spreading.
+\end{itemize}
+\pause
+%
+\begin{example}[Double vowel harmony in \textsc{Pseudo-Buryat}]
+\begin{itemize}
+	\item \textcolor{blue!60!black}{Primary:} all vowels harmonize in ATR
+	\item \textcolor{blue!60!black}{Secondary:} all non-high vowels harmonize in rounding \\ \medskip
+		\begin{tabular}{ll}
+			\textcolor{green!50!black}{\textopeno}r\textcolor{green!50!black}{\textupsilon}l\textcolor{green!50!black}{\textopeno}d &  *\textopeno r\textupsilon lad \\
+			t\textcolor{green!50!black}{o}r\textcolor{green!50!black}{u}l\textcolor{green!50!black}{o}d & *toruled
+		\end{tabular}
+	\medskip
+	\pause
+	\item One tier is not enough: there can be unbounded amount of high vowels in-between the two harmonizing non-high ones.
+\end{itemize}
+\end{example}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Unattested patterns: Pseudo-Buryat [cont.]}
+\begin{itemize}
+	\item \textcolor{blue!60!black}{Primary:} all vowels harmonize in ATR.
+	\item \textcolor{blue!60!black}{Secondary:} all non-high vowels harmonize in rounding.
+\end{itemize}
+\pause
+%
+\begin{example}[Double vowel harmony in \textsc{Pseudo-Buryat}]
+\vspace{1em}
+	\begin{tabular}{ll}
+		\hspace{3em} t\textcolor{green!50!black}{o}r\textcolor{green!50!black}{u}l\textcolor{green!50!black}{o}d & *toruled
+	\end{tabular}
+\vspace{-0.5em}
+%
+\pause
+%
+\begin{figure}
+\begin{tikzpicture}
+\node (0) at (0,0.027) {t};
+\node (1) at (0.5,0) {o};
+\node (2) at (1,0) {r};
+\node (3) at (1.5,0) {u};
+\node (4) at (2,0.04) {l};
+\node (5) at (2.5,0) {o};
+\node (6) at (3,0.04) {d};
+%
+\node (01) at (0.5,1) {o};
+\node (03) at (1.5,1) {u};
+\node (05) at (2.5,1) {o};
+%
+\node (001) at (0.5,-1) {o};
+\node (005) at (2.5,-1) {o};
+%
+\foreach \Source/\Target in {%
+	001.north/1.south,
+	005.north/5.south,
+        1.north/01.south,
+        3.north/03.south,
+	5.north/05.south%
+    }
+\draw (\Source) to (\Target);
+%
+\draw[dotted] (-0.25,0.5) to (4.2,0.5);
+\node at (3.5,0.65) {{\tiny ATR harmony}};
+\draw[dotted] (-0.25,-0.55) to (4.2,-0.55);
+\node at (3.5,-0.4) {{\tiny labial harmony}};
+%
+\node at (0.4,1.5) {$^{\textcolor{green!50!black}{ok}}$torulod};
+\end{tikzpicture}
+%
+\hspace{1em}
+%
+\begin{tikzpicture}
+\node (0) at (0,0.027) {t};
+\node (1) at (0.5,0) {o};
+\node (2) at (1,0) {r};
+\node (3) at (1.5,0) {u};
+\node (4) at (2,0.04) {l};
+\node (5) at (2.5,0) {e};
+\node (6) at (3,0.04) {d};
+%
+\node (01) at (0.5,1) {o};
+\node (03) at (1.5,1) {u};
+\node (05) at (2.5,1) {e};
+%
+\node (001) at (0.5,-1) {\alert{o}};
+\node (005) at (2.5,-1) {\alert{e}};
+%
+\foreach \Source/\Target in {%
+	001.north/1.south,
+	005.north/5.south,
+        1.north/01.south,
+        3.north/03.south,
+	5.north/05.south%
+    }
+\draw (\Source) to (\Target);
+%
+\draw[dotted] (-0.25,0.5) to (4.2,0.5);
+\node at (3.5,0.65) {{\tiny ATR harmony}};
+\draw[dotted] (-0.25,-0.55) to (4.2,-0.55);
+\node at (3.5,-0.4) {{\tiny labial harmony}};
+%\draw [dashed] (0.28,-0.8) -- (2.7,-0.8) -- (2.7,-1.2) -- (0.28,-1.2) -- (0.28,-0.8);
+%
+\node at (0.4,1.5) {\textcolor{red}{*}toruled};
+\end{tikzpicture}
+\end{figure}
+\end{example}
+\end{frame}
+
+%------------------------------------------------
+
+
+
+
+% ====================================================
+%	DISCUSSION
+% ====================================================
+\section[Discussion]{Discussion}
+\subsection*{Discussion}
+
+\begin{frame}
+\frametitle{Conclusion}
+\textbf{Characteristics of the secondary harmony:}
+\smallskip
+\pause
+\begin{itemize}
+	\item Secondary harmony is bounded on a tier, or \pause
+	\item Secondary harmony spreads together with the main one, and \pause
+	\item Transparent elements for the primary harmony are transparent for the secondary one, and \pause
+	\item Blockers for the secondary harmony are presented on a tier of the primary one.
+\end{itemize}
+\pause
+\bigskip
+\begin{center}
+\textcolor{blue!75!black!50!white}{\textbf{\Large It is always possible to \textit{fit} vowel harmony \\ 
+	on one tier!}}
+\end{center}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Why does it matter?}
+\begin{itemize}
+\item \textcolor{blue!60!black}{What is the algebra of tier alphabets?}
+\onslide<2->{
+\item If there is more than one tier needed to capture different phenomena in a language, their possible relations are:}
+\end{itemize}
+%
+\begin{figure}[h]
+\begin{tikzpicture}
+\onslide<3->{\draw[red,fill=red, opacity=.5] (0,0) circle (2em);
+\draw[green,fill=green, opacity=.5] (1.6,0) circle (2em);
+\node at (0.8,-1.2) {\texttt{Disjoint}};}
+\onslide<4->{\node at (0.8,-1.6) {\small \textsc{KiYaka} i.a.};
+\node at (0.8,-1.9) {\tiny Hyman (1995, 1998)};}
+\onslide<5->{\draw[green,fill=green, opacity=.5] (7,0) circle (2em);
+\draw[red,fill=red, opacity=.5] (7,-0.2) circle (1.2em);
+\node at (7,-1.2) {\texttt{Embedded}};}
+\onslide<6->{\node at (7,-1.6) {\small \textsc{Imdlawn Tshlhiyt}};
+\node at (7,-1.9) {\tiny McMullin (2016)};}
+\onslide<7->{\draw[green,fill=green, opacity=.5] (3.5,-2.5) circle (2em);
+\draw[red,fill=red, opacity=.5] (4.25,-2.5) circle (2em);
+\node at (3.875,-3.7) {\texttt{Intersecting}};}
+\onslide<8->{\node at (3.875,-4.15) {\large \alert{None?}};}
+\end{tikzpicture}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{On the next episode...}
+\begin{itemize}
+\item What are double harmonies telling us?
+\item What are natural tiers and how do they differ from the unnatural ones?
+\item What are the limitations on the tier projection?
+\end{itemize}
+%
+\bigskip\bigskip
+%
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!80!red!30!white]
+{\centering The more complex the mind, the greater the need for the simplicity of play.}
+\begin{flushright}
+\emph{James T. Kirk}
+\end{flushright}
+\end{tcolorbox}
+\end{frame}
+
+
+%------------------------------------------------
+% REFERENCES
+%------------------------------------------------
+\appendix
+\section*{References}
+\subsection*{References}
+
+{\unnumbered
+\begin{frame}%[allowframebreaks]
+\frametitle{References}
+{ \tiny
+\begin{thebibliography}{99}
+%
+\bibitem{Akinlabi2009} Akinlabi, Akinbiyi (2003)
+\newblock Neutral vowels in Lokaa harmony.
+\newblock \emph{Canadian Journal of Linguistics} 59(2):197-228.
+%
+\bibitem{HerbertPoppe63} Herbert, Raymond and Nicholas Poppe (1963)
+\newblock Kirghiz manual.
+\newblock In \emph{Uralic and Altaic Series} 33. Bloomington: Indiana University publications.
+%
+\bibitem{Hyman95} Hyman, Larry (1995)
+\newblock The case of Yaka.
+\newblock In \emph{Studies in African Linguistics} 24:5-30.
+%
+\bibitem{Hyman98} Hyman, Larry (1998)
+\newblock Positional prominence and the `prosodic trough' in Yaka.
+\newblock In \emph{Phonology} 15:14-75.
+%
+\bibitem{Kaun1995} Kaun, Abigail Rhoades (1995)
+\newblock The typology of rounding harmony: an optimality theoretic approach.
+\newblock PhD thesis, UCLA.
+%
+%\bibitem{Mahanta08} Mahanta, Shakuntala (2008)
+%\newblock Local vs. non-local consonantal intervention in vowel harmony.
+%\newblock In \emph{Proceedings of ConSOLE XIV}. Leiden: Leiden University, pp. 165-188.
+%
+\bibitem{McMullin16} McMullin, Kevin James (2016)
+\newblock Tier-based locality in long-distance phonotactics: learnability and typology.
+\newblock PhD thesis, University of British Columbia.
+%
+\end{thebibliography}
+}
+\end{frame}
+}
+
+\section[Kirghiz harmony]{Kirghiz harmony}
+\subsection*{Kirghiz harmony}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Secondary harmony: Kirghiz}
+\begin{itemize}
+	\item Primary harmony is frontness.
+	\item Secondary harmony is rounding.
+\end{itemize}
+%
+\pause
+%
+\begin{example}[Double vowel harmony in \textsc{Kirghiz}]
+From \textcolor{gray}{(Kaun 1995)}, dialect described in \textcolor{gray}{(Herbert \& Poppe 1963)}
+\begin{itemize}
+	\item \textcolor{blue!60!black}{Primary:} all vowels harmonize in frontness.
+	\item \textcolor{blue!60!black}{Secondary:}
+		\begin{itemize}
+			\item In [+front] words, all vowels agree in rounding.
+			\item In [--front] words, only adjacent non-high vowels harmonize in rounding, 
+				high vowels are blockers.
+		\end{itemize}
+	%
+	\medskip\pause
+	%
+	\begin{tabular}{lll}
+	k\textcolor{green!50!black}{\"{o}}l-d\textcolor{green!50!black}{\"{o}}n & `lake-\textsc{abl}' & *k\"{o}l-den \\
+	\textcolor{green!50!black}{\"{u}}y-d\textcolor{green!50!black}{\"{o}}n & `house-\textsc{abl}' & *\"{u}y-den \\
+	t\textcolor{green!50!black}{o}k\textcolor{green!50!black}{o}y-d\textcolor{green!50!black}{o}n & `forest-\textsc{abl}' & *tokoy-dan \\
+	t\textcolor{green!50!black}{o}rm\textcolor{green!50!black}{u}\v{s}-\textcolor{green!50!black}{t}an & `life-\textsc{abl}' & *tormu\v{s}-ton
+	\end{tabular}
+\end{itemize}
+\end{example}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Secondary harmony: Kirghiz [cont.]}
+\begin{itemize}
+	\item $T$ = \{o, \"{o}, e, a, \textrtailz, a, u, \"{u}\}
+	\pause\bigskip
+	%
+	\item \textcolor{blue!60!black}{Primary:} all vowels harmonize in frontness.
+	\item No *V$_{\alpha front}$V$_{-\alpha front}$ bigrams \\
+		{\small $H_{front}$\,\,= \{*\"{o}o, *ea, *a\"{o}, *u\"{u}, *ae, ...\} }
+	\pause\bigskip
+	%
+	\item \textcolor{blue!60!black}{Secondary:} in [+front] words, all vowels agree in rounding.
+	\item No *V$^{+front}_{\alpha round}$V$^{+front}_{-\alpha round}$ bigrams \\
+		{\small $H_{round}$\,\,= \{*\"{u}e, *e\"{u}, *\"{o}e, *e\"{o}, *i\"{u}, *\"{u}i, ...\} }
+		\pause\bigskip
+	%
+	\item \textcolor{blue!60!black}{Secondary:} ... and in [--front] words, only adjacent non-high vowels harmonize in rounding.
+	\item No *V$^{-hi}_{\alpha round}$V$^{-hi}_{-\alpha round}$ bigrams \\
+		{\small $H'_{round}$\,\,= $H_{round}$ + \{*ao, *oa, *uo,  *\textrtailz o\} }
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Secondary harmony: Kirghiz [cont.]}
+\begin{itemize}
+	\item $T$ = \{o, \"{o}, e, a, \textrtailz, a, u, \"{u}\}
+	\item {\small $H_{front}$\,\,= \{*\"{o}o, *ea, *a\"{o}, *u\"{u}, *ae, ...\} }
+	\item {\small $H_{round}$\,\,= \{*\"{u}e, *e\"{u}, *\"{o}e, *i\"{u}, *\"{u}i, ...\}  + \{*ao, *oa, *uo,  *\textrtailz o\} }
+\end{itemize}
+\pause
+\begin{example}[Double vowel harmony in \textsc{Kirghiz}]
+\begin{tabular}{lll}
+\hspace{2em} \textcolor{green!50!black}{\"{u}}y-d\textcolor{green!50!black}{\"{o}}n & `house-\textsc{abl}' & *\"{u}y-den
+\end{tabular}
+\pause
+\begin{figure}
+\begin{tikzpicture}
+\node (0) at (0,0) {\"{u}};
+\node (1) at (0.5,-0.09) {y};
+\node (2) at (1,0) {d};
+\node (3) at (1.5,0) {\"{o}};
+\node (4) at (2,-0.05) {n};
+%
+\node (00) at (0,1) {\"{u}};
+\node (03) at (1.5,1) {\"{o}};
+%
+\foreach \Source/\Target in {%
+        0.north/00.south,
+	3.north/03.south%
+    }
+\draw (\Source) to (\Target);
+%
+\draw[dotted] (-0.25,0.5) to (3,0.5);
+\node at (2.5,0.65) {{\tiny harmony}};
+%
+\node at (0.3,1.5) {$^{\textcolor{green!50!black}{ok}}$\"{u}yd\"{o}n};
+\end{tikzpicture}
+%
+\hspace{1.5em}
+%
+\begin{tikzpicture}
+\node (0) at (0,0) {\"{u}};
+\node (1) at (0.5,-0.09) {y};
+\node (2) at (1,0) {d};
+\node (3) at (1.5,-0.05) {e};
+\node (4) at (2,-0.05) {n};
+%
+\node (00) at (0,1) {\alert{\"{u}}};
+\node (03) at (1.5,1) {\alert{e}};
+%
+\foreach \Source/\Target in {%
+        0.north/00.south,
+	3.north/03.south%
+    }
+\draw (\Source) to (\Target);
+%
+\draw[dotted] (-0.25,0.5) to (3,0.5);
+\node at (2.5,0.65) {{\tiny harmony}};
+%
+\node at (0.3,1.5) {\textcolor{red}{*}\"{u}yden};
+\end{tikzpicture}
+\end{figure}
+\end{example}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Secondary harmony: Kirghiz [cont.]}
+\begin{itemize}
+	\item $T$ = \{o, \"{o}, e, a, \textrtailz, a, u, \"{u}\}
+	\item {\small $H_{front}$\,\,= \{*\"{o}o, *ea, *a\"{o}, *u\"{u}, *ae, ...\} }
+	\item {\small $H_{round}$\,\,= \{*\"{u}e, *e\"{u}, *\"{o}e, *i\"{u}, *\"{u}i, ...\}  + \{*ao, *oa, *uo,  *\textrtailz o\} }
+\end{itemize}
+%
+\begin{example}[Double vowel harmony in \textsc{Kirghiz}]
+\begin{tabular}{lll}
+\hspace{2em} t\textcolor{green!50!black}{o}rm\textcolor{green!50!black}{u}\v{s}-t\textcolor{green!50!black}{a}n & `life-\textsc{abl}' & *tormu\v{s}-ton
+\end{tabular}
+\pause
+\begin{figure}
+\begin{tikzpicture}
+\node (0) at (0,0.03) {t};
+\node (1) at (0.5,0) {o};
+\node (2) at (1,0) {r};
+\node (3) at (1.5,0) {m};
+\node (4) at (2,0) {u};
+\node (5) at (2.5,0.03) {\v{s}};
+\node (6) at (3,0.03) {t};
+\node (7) at (3.5,0) {a};
+\node (8) at (4,0) {n};
+%
+\node (01) at (0.5,1) {o};
+\node (04) at (2,1) {u};
+\node (07) at (3.5,1) {a};
+%
+\foreach \Source/\Target in {%
+        1.north/01.south,
+        4.north/04.south,
+	7.north/07.south%
+    }
+\draw (\Source) to (\Target);
+%
+\draw[dotted] (-0.25,0.5) to (4.57,0.5);
+\node at (4.1,0.65) {{\tiny harmony}};
+%
+\node at (0.7,1.5) {$^{\textcolor{green!50!black}{ok}}$tormu\v{s}tan};
+\end{tikzpicture}
+%
+\hspace{0.3em}
+%
+\begin{tikzpicture}
+\node (0) at (0,0.03) {t};
+\node (1) at (0.5,0) {o};
+\node (2) at (1,0) {r};
+\node (3) at (1.5,0) {m};
+\node (4) at (2,0) {u};
+\node (5) at (2.5,0.03) {\v{s}};
+\node (6) at (3,0.03) {t};
+\node (7) at (3.5,0) {o};
+\node (8) at (4,0) {n};
+%
+\node (01) at (0.5,1) {o};
+\node (04) at (2,1) {\alert{u}};
+\node (07) at (3.5,1) {\alert{o}};
+%
+\foreach \Source/\Target in {%
+        1.north/01.south,
+        4.north/04.south,
+	7.north/07.south%
+    }
+\draw (\Source) to (\Target);
+%
+\draw[dotted] (-0.25,0.5) to (4.57,0.5);
+\node at (4.1,0.65) {{\tiny harmony}};
+%
+\node at (0.7,1.5) {\textcolor{red}{*}tormu\v{s}ton};
+\end{tikzpicture}
+\end{figure}
+\end{example}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Secondary harmony: Kirghiz [cont.]}
+\begin{itemize}
+	\item \textcolor{blue!60!black}{Primary:} all vowels harmonize in frontness.
+	\item \textcolor{blue!60!black}{Secondary:} in [+front] words, all vowels harmonize in rounding, and in [--front] words, only adjacent non-high vowels agree in it, whereas high vowels function as blockers.
+	%
+	\pause\bigskip
+	%
+	\item Only one tier is needed:
+		\begin{itemize}
+			\item Both harmonies operate over the same alphabet.
+			\item Secondary harmony is \emph{bounded on the vowel tier} for [--front] words, 
+			or \emph{spreads} together with the [+front] feature.
+		\end{itemize}
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\section[Quasi-Buryat harmony]{Quasi-Buryat harmony}
+\subsection*{Quasi-Buryat harmony}
+
+\begin{frame}
+\frametitle{Unattested patterns: Quasi-Buryat}
+\begin{itemize}
+	\item Secondary harmony involves blocker that was not presented at the tier of the primary one.
+\end{itemize}
+\pause
+%
+\begin{example}[Double vowel harmony in \textsc{Quasi-Buryat}]
+\begin{itemize}
+	\item \textcolor{blue!60!black}{Primary:} all vowels except \emph{i} harmonize in ATR.
+	\item \textcolor{blue!60!black}{Secondary:} adjacent non-high vowels harmonize in rounding, high vowel \emph{i} blocks this spreading. \\ \medskip \pause
+		\begin{tabular}{lll}
+	\textcolor{green!50!black}{\textopeno}r\textcolor{green!50!black}{\textopeno}d & *\textopeno rad & *\textopeno rod \\
+	\textcolor{green!50!black}{\textopeno}r\textcolor{red!70!black}{i}l\textcolor{green!50!black}{a}d & *\textopeno ril\textopeno d & *\textopeno riled \\
+	t\textcolor{green!50!black}{o}r\textcolor{green!50!black}{o}d & *tored & *torad \\
+	t\textcolor{green!50!black}{o}r\textcolor{red!70!black}{i}l\textcolor{green!50!black}{e}d & *torilod & *torilad
+\end{tabular}
+	\medskip
+	\pause
+	\item One tier is not enough: \emph{i} \textsc{must not} presented on the ATR harmony tier, and \textsc{must be} presented on the labial assimilation tier.
+\end{itemize}
+\end{example}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Unattested patterns: Quasi-Buryat [cont.]}
+\begin{itemize}
+	\item \textcolor{blue!60!black}{Primary:} all vowels except \emph{i} harmonize in ATR.
+	\smallskip\pause
+	\item $T_{ATR}$ = \{\textopeno, o, a, e\}
+	\item $H_{ATR}$ = \{*\textopeno o, *o\textopeno, *ae, *ea, *\textopeno e, *ao, ...\}
+	%
+	\bigskip\pause
+	%
+	\item \textcolor{blue!60!black}{Secondary:} adjacent non-high vowels harmonize in rounding, high vowel \emph{i} blocks this spreading.
+	\smallskip\pause
+	\item $T_{round}$ = \{i, \textopeno, o, a, e\}
+	\item $H_{round}$ = \{*\textopeno a, *a\textopeno, *oe, *eo, *i\textopeno, *io\}
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Unattested patterns: Quasi-Buryat [cont.]}
+\begin{itemize}
+	{\small 
+	\item $T_{ATR}$ = \{\textopeno, o, a, e\}
+	\item $H_{ATR}$ = \{*\textopeno o, *o\textopeno, *ae, *ea, *\textopeno e, *ao, ...\}
+	\item $T_{round}$ = \{i, \textopeno, o, a, e\}
+	\item $H_{round}$ = \{*\textopeno a, *a\textopeno, *oe, *eo, *i\textopeno, *io\} }
+\end{itemize}
+\pause
+%
+\begin{example}[Double vowel harmony in \textsc{Pseudo-Buryat}]
+\vspace{0.8em}
+	\begin{tabular}{lll}
+		\hspace{2em} t\textcolor{green!50!black}{o}r\textcolor{red!70!black}{i}l\textcolor{green!50!black}{e}d & *torilod & *torilad
+	\end{tabular}
+\vspace{-0.5em}
+%
+\pause
+%
+\begin{figure}
+\begin{tikzpicture}
+\node (0) at (0,0.027) {t};
+\node (1) at (0.5,0) {o};
+\node (2) at (1,0) {r};
+\node (3) at (1.5,0) {i};
+\node (4) at (2,0.04) {l};
+\node (5) at (2.5,0) {e};
+\node (6) at (3,0.04) {d};
+%
+\node (01) at (0.5,1) {o};
+\node (05) at (2.5,1) {e};
+%
+\node (001) at (0.5,-1) {o};
+\node (003) at (1.5,-1) {i};
+\node (005) at (2.5,-1) {e};
+%
+\foreach \Source/\Target in {%
+	001.north/1.south,
+	003.north/3.south,
+	005.north/5.south,
+        1.north/01.south,
+	5.north/05.south%
+    }
+\draw (\Source) to (\Target);
+%
+\draw[dotted] (-0.25,0.5) to (4.2,0.5);
+\node at (3.5,0.65) {{\tiny ATR harmony}};
+\draw[dotted] (-0.25,-0.55) to (4.2,-0.55);
+\node at (3.5,-0.4) {{\tiny labial harmony}};
+%
+\node at (0.4,1.5) {$^{\textcolor{green!50!black}{ok}}$toriled};
+\end{tikzpicture}
+%
+\hspace{1em}
+%
+\begin{tikzpicture}
+\node (0) at (0,0.027) {t};
+\node (1) at (0.5,0) {o};
+\node (2) at (1,0) {r};
+\node (3) at (1.5,0) {i};
+\node (4) at (2,0.04) {l};
+\node (5) at (2.5,0) {o};
+\node (6) at (3,0.04) {d};
+%
+\node (01) at (0.5,1) {o};
+\node (05) at (2.5,1) {o};
+%
+\node (001) at (0.5,-1) {o};
+\node (003) at (1.5,-1) {\alert{i}};
+\node (005) at (2.5,-1) {\alert{o}};
+%
+\foreach \Source/\Target in {%
+	001.north/1.south,
+	003.north/3.south,
+	005.north/5.south,
+        1.north/01.south,
+	5.north/05.south%
+    }
+\draw (\Source) to (\Target);
+%
+\draw[dotted] (-0.25,0.5) to (4.2,0.5);
+\node at (3.5,0.65) {{\tiny ATR harmony}};
+\draw[dotted] (-0.25,-0.55) to (4.2,-0.55);
+\node at (3.5,-0.4) {{\tiny labial harmony}};
+%
+\node at (0.4,1.5) {\textcolor{red}{*}torilod};
+\end{tikzpicture}
+\end{figure}
+\end{example}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Unattested patterns: Quasi-Buryat [cont.]}
+\begin{itemize}
+	{\small 
+	\item $T_{ATR}$ = \{\textopeno, o, a, e\}
+	\item $H_{ATR}$ = \{*\textopeno o, *o\textopeno, *ae, *ea, *\textopeno e, *ao, ...\}
+	\item $T_{round}$ = \{i, \textopeno, o, a, e\}
+	\item $H_{round}$ = \{*\textopeno a, *a\textopeno, *oe, *eo, *i\textopeno, *io\} }
+\end{itemize}
+%
+\begin{example}[Double vowel harmony in \textsc{Pseudo-Buryat}]
+\vspace{0.8em}
+	\begin{tabular}{lll}
+		\hspace{2em} toriled & *torilod & *torilad
+	\end{tabular}
+\vspace{-0.5em}
+%
+\begin{figure}
+\begin{tikzpicture}
+\node (0) at (0,0.027) {t};
+\node (1) at (0.5,0) {o};
+\node (2) at (1,0) {r};
+\node (3) at (1.5,0) {i};
+\node (4) at (2,0.04) {l};
+\node (5) at (2.5,0) {e};
+\node (6) at (3,0.04) {d};
+%
+\node (01) at (0.5,1) {o};
+\node (05) at (2.5,1) {e};
+%
+\node (001) at (0.5,-1) {o};
+\node (003) at (1.5,-1) {i};
+\node (005) at (2.5,-1) {e};
+%
+\foreach \Source/\Target in {%
+	001.north/1.south,
+	003.north/3.south,
+	005.north/5.south,
+        1.north/01.south,
+	5.north/05.south%
+    }
+\draw (\Source) to (\Target);
+%
+\draw[dotted] (-0.25,0.5) to (4.2,0.5);
+\node at (3.5,0.65) {{\tiny ATR harmony}};
+\draw[dotted] (-0.25,-0.55) to (4.2,-0.55);
+\node at (3.5,-0.4) {{\tiny labial harmony}};
+%
+\node at (0.4,1.5) {$^{\textcolor{green!50!black}{ok}}$toriled};
+\end{tikzpicture}
+%
+\hspace{1em}
+%
+\begin{tikzpicture}
+\node (0) at (0,0.027) {t};
+\node (1) at (0.5,0) {o};
+\node (2) at (1,0) {r};
+\node (3) at (1.5,0) {i};
+\node (4) at (2,0.04) {l};
+\node (5) at (2.5,0) {a};
+\node (6) at (3,0.04) {d};
+%
+\node (01) at (0.5,1) {\alert{o}};
+\node (05) at (2.5,1) {\alert{a}};
+%
+\node (001) at (0.5,-1) {o};
+\node (003) at (1.5,-1) {i};
+\node (005) at (2.5,-1) {a};
+%
+\foreach \Source/\Target in {%
+	001.north/1.south,
+	003.north/3.south,
+	005.north/5.south,
+        1.north/01.south,
+	5.north/05.south%
+    }
+\draw (\Source) to (\Target);
+%
+\draw[dotted] (-0.25,0.5) to (4.2,0.5);
+\node at (3.5,0.65) {{\tiny ATR harmony}};
+\draw[dotted] (-0.25,-0.55) to (4.2,-0.55);
+\node at (3.5,-0.4) {{\tiny labial harmony}};
+%
+\node at (0.4,1.5) {\textcolor{red}{*}torilad};
+\end{tikzpicture}
+\end{figure}
+\end{example}
+\end{frame}
+
+
+
+
+\end{document}

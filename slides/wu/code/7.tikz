@@ -1,0 +1,4 @@
+\begin{tikzpicture}
+     \Tree
+           [.AP [.{$\&$} [.AP  \edge[roof]; {Neg2 \ {\dots}} ][.AP  \edge[roof]; {Neg1 \ {\dots}} ]] [.NP ]]
+            \end{tikzpicture}

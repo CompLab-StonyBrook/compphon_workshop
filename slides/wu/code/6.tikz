@@ -1,0 +1,13 @@
+\scalebox{0.65}{
+\begin{forest}
+ for tree={s sep=(6-level)*2mm, parent anchor=south, child anchor=north,l=0mm}
+       [\dots
+           [Neg2]
+               [\dots
+                   [,phantom]
+                  [TP 
+                    [,phantom]
+                  [Neg1]
+                   [AP[kaixin,roof]]
+                   ]]
+    \end{forest}}

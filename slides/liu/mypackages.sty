@@ -1,0 +1,49 @@
+\ProvidesPackage{mypackages}
+%\usepackage{fixltx2e}
+
+\usepackage[utf8]{inputenc}
+\usepackage{tipx}
+\usepackage{lmodern}% http://ctan.org/pkg/lm
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,fit,positioning}
+\tikzset{
+    invisible/.style={opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+}
+
+\usepackage{tikz-qtree}
+\usepackage{forest}
+\tikzset{
+    invisible/.style={opacity=0},
+    visible on/.style={alt=#1{}{invisible}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+}
+
+\useforestlibrary{linguistics}
+\forestapplylibrarydefaults{linguistics} % adding theses two gives you roof
+
+\usepackage{amsmath}	% for semantic representation
+\usepackage{amssymb} % for a decent-looking symbol for the empty set
+\usepackage{stmaryrd}	% for semantic representation [[ ]]
+\usepackage{graphicx}
+\def\shrug{\texttt{\raisebox{0.75em}{\char`\_}\char`\\\char`\_\kern-0.5ex(\kern-0.25ex\raisebox{0.25ex}{\rotatebox{45}{\raisebox{-.75ex}"\kern-1.5ex\rotatebox{-90})}}\kern-0.5ex)\kern-0.5ex\char`\_/\raisebox{0.75em}{\char`\_}}}
+
+\usepackage{tabularx}
+\usepackage{multicol} % for multiple columns
+\setlength{\columnsep}{2cm} %for col separation
+
+\usepackage[longnamesfirst]{natbib}
+\bibliographystyle{apalike}
+\setcitestyle{authoryear,round,semicolon,
+aysep={},yysep={,},notesep={:}}
+\bibpunct{(}{)}{,}{a}{}{;}
+
+
+\usepackage{gb4e}
+\noautomath

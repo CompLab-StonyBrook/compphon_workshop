@@ -1,0 +1,40 @@
+\ProvidesPackage{mycommands}
+
+\newcommand{\treeload}[1]{{\small \input{#1}}}
+
+% MG feature types
+\newcommand{\FeatFont}[1]{\ensuremath{\mathrm{#1}}} % typeset features in math roman
+\newcommand{\fcat}[1]{\ensuremath{\FeatFont{#1^-}}\ } % category feature
+\newcommand{\fsel}[1]{\ensuremath{\FeatFont{#1^+}\ }} % selector feature
+\newcommand{\flcr}[1]{\ensuremath{\FeatFont{#1^+}\ }} % licensor feature
+\newcommand{\flce}[1]{\ensuremath{\FeatFont{#1^-}\ }} % licensee feature
+\newcommand{\mlex}[2]{\ensuremath{\text{#1} ::\thinspace #2}}
+
+% Tree labels
+\newcommand{\TMove}{\ensuremath{\circ}}
+\newcommand{\TMerge}{\ensuremath{\bullet}}
+
+% Defines
+\newcommand{\is}{\ensuremath{\mathrel{\mathop:}=}}
+
+% empty string
+\newcommand{\emptystring}{\ensuremath{\varepsilon}}
+
+% Text subscript
+\newcommand{\tsb}[1]{\ensuremath{_\text{#1}}}
+\newcommand{\tsp}[1]{\ensuremath{^\text{#1}}}
+
+% \cardof - cardinality
+\newcommand{\cardof}[1]{\ensuremath{| #1 |}}
+
+% \setof - set with auto-sized brackets
+\newcommand{\setof}[1]{\ensuremath{\left \{ #1 \right \}}}
+
+% \tuple - tuple with auto-sized brackets
+\newcommand{\tuple}[1]{\ensuremath{\left \langle #1 \right \rangle }}
+
+\newcommand{\citecolor}[1]{{\color{gray!85}{#1}}}
+\newcommand{\colored}[2]{{\color{#1}#2}}
+\newcommand{\Purple}[1]{\textbf{\colored{purple}{#1}}}
+\newcommand{\Teal}[1]{\textbf{\colored{teal}{#1}}}
+\newcommand{\Blue}[1]{\textbf{\colored{blue!70}{#1}}}

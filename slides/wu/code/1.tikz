@@ -1,0 +1,4 @@
+\textcolor{red}{*}\begin{forest}
+for tree={edge={dashed,red},red}
+ [TP[$>1$ Neg,roof]]
+\end{forest}

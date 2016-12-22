@@ -1,0 +1,29 @@
+\scalebox{0.58}{
+\begin{forest}
+ for tree={s sep=(6-level)*2mm, parent anchor=south, child anchor=north}
+   [,phantom,{l=0mm}
+       [TP,blue,draw,name=tp1
+           [ni]
+               [NegP
+                   [Neg,blue,draw,name=neg1
+                     [bu]]
+                  [AuxP
+                   [neng]
+                     [\dots
+                        [\dots]
+                      [TP,blue,draw,name=tp2
+                          [\dots]
+                          [NegP
+                            [Neg,blue,draw,name=neg2 
+                              [bu]]
+                            [vP[gongzuo,roof]]]]]]]]
+       [TP,blue,draw,fill=yellow,name=ttp1
+           [Neg,blue,draw,fill=yellow,name=tneg1]
+           [TP,blue,draw,fill=yellow,name=ttp2
+               [Neg,blue,draw,fill=yellow,name=tneg2]
+           ]
+      ]]
+   %
+   \foreach \Node in {tp1,neg1,neg2,tp2}
+       \draw[dashed,red] (\Node) to (t\Node);
+\end{forest}}

@@ -1,0 +1,8 @@
+\begin{forest}
+ [TP,blue,name=ttp1
+           [Neg,blue,name=tneg1]
+           [TP,blue,name=ttp2
+               [Neg,blue,name=tneg2]
+           ]
+      ]
+ \end{forest}

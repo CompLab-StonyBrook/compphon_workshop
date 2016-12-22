@@ -1,0 +1,4 @@
+*\begin{forest}
+for tree={parent anchor=south, child anchor=north}
+[TP,red[Neg,red][Neg,red]]
+            \end{forest}
