@@ -48,6 +48,17 @@ For the Frontiers talk dinner, write to [workshop@thomasgraf.net](mailto:worksho
 [![Our seminar room, unusually packed](./img/auditorium_small.jpg)](./img/auditorium.jpg)  
 *Our seminar room, unusually packed*
 
+[![Hyunah kicks off the student talks](./img/hyunah_small.jpg)](./img/hyunah.jpg)  
+*Hyunah kicks off the student talks*
+
+[![Looks like Aniello's talk really got Jeff thinking](./img/aniello_jeff_small.jpg)](./img/aniello_jeff.jpg)  
+*Looks like Aniello's talk really got Jeff thinking*
+
+[![Two slides into Alëna's talk we already encounter the first exotic language](./img/auditorium_small.jpg)](./img/auditorium.jpg)  
+*Two slides into Alëna's talk we already encounter the first exotic language*
+
+[![Jon always asks the toughest questions: Who cares?](./img/jon_whocares_small.jpg)](./img/jon_whocares.jpg)  
+*Jon always asks the toughest questions: Who cares?* 
 
 [graf_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/graf/tutorial_slides.pdf?raw=true
 [baek_slides]: https://github.com/CompLab-StonyBrook/compphon_workshop/blob/master/slides/baek/baek.pdf?raw=true
