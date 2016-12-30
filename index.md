@@ -25,15 +25,15 @@ Please send an email to [workshop@thomasgraf.net](mailto:workshop@thomasgraf.net
 | 10:50 - 11:00 | Mini break |
 | **11:00 - 12:30** | **Tier-Based Strictly Local Phonology** (Chair: Jeffrey Heinz) |
 | 11:00 - 11:30 | Hyunah Baek, [Computational representation of unbounded stress patterns: tiers with structural features][baek_abstract] [(Slides)][baek_slides] |
-| 11:30 - 12:00 | Aniello De Santo, [A game of tiers: Exploring the formal properties of TSL languages][desanto_abstract] [(Slides)][baek_slides] |
-| 12:00 - 12:30 | Alëna Aksënova, [To achieve harmony we only need one tier][aksenova_abstract] [(Slides)][baek_slides] |
+| 11:30 - 12:00 | Aniello De Santo, [A game of tiers: Exploring the formal properties of TSL languages][desanto_abstract] [(Slides)][desanto_slides] |
+| 12:00 - 12:30 | Alëna Aksënova, [To achieve harmony we only need one tier][aksenova_abstract] [(Slides)][aksenova_slides] |
 | 12:30 - 2:10 | Lunch break |
 | **2:10 - 3:00** | **Subregular Mappings in Phonology**  (Chair: Adam Jardine) |
-| 2:10 - 2:40 | Chikako Takahashi, [Multiple metathesis is strictly local: evidence from stress driven metathesis][takahashi_abstract] [(Slides)][baek_slides] |
+| 2:10 - 2:40 | Chikako Takahashi, [Multiple metathesis is strictly local: evidence from stress driven metathesis][takahashi_abstract] [(Slides)][takahashi_slides] |
 | 2:40 - 3:00 | *Blitz talks - Session 1*; Logan Peng [(Slides)][peng_slides], Jon Rawski [(Slides)][rawski_slides] |
 | 3:00 - 3:10 | Mini break|
 | **3:10 - 4:00** | **Syntax and Morphology** (Chair: Thomas Graf) |
-| 3:10 - 3:40 | Hongchen Wu, [Tier-based strictly local analyses of negation in Mandarin Chinese][wu_abstract] [(Slides)][baek_slides] |
+| 3:10 - 3:40 | Hongchen Wu, [Tier-based strictly local analyses of negation in Mandarin Chinese][wu_abstract] [(Slides)][wu_slides] |
 | 3:40 - 4:00 | *Blitz talks - Session 2*; Lei Liu [(Slides)][liu_slides], Jimmy Suzuki [(Slides)][suzuki_slides] |
 | 4:00 - 4:30 | Coffee break |
 | 4:30 - 6:00 | Adam Jardine, [Expressivity and autosegmental structure][jardine_abstract] |
