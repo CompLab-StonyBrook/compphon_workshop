@@ -45,8 +45,8 @@ For the Frontiers talk dinner, write to [workshop@thomasgraf.net](mailto:worksho
 
 # Workshop Pictures
 
-[![Our seminar room, unusually packed](./img/auditorium_small.jpg)](./img/auditorium.jpg)  
-*Our seminar room, unusually packed*
+[![Our seminar room, pretty packed](./img/auditorium_small.jpg)](./img/auditorium.jpg)  
+*Our seminar room, pretty packed*
 
 [![Hyunah kicks off the student talks](./img/hyunah_small.jpg)](./img/hyunah.jpg)  
 *Hyunah kicks off the student talks*
